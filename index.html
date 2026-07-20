@@ -165,9 +165,10 @@
   }
   .macros strong { color: var(--green); }
   .item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 0.6rem;
     padding: 0.32rem 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -194,8 +195,7 @@
   .item input[type="checkbox"]:focus-visible { outline: 2px solid var(--marigold); outline-offset: 2px; }
   .item input[type="checkbox"]:checked + span { color: var(--faint); text-decoration: line-through; }
   .item .si { color: var(--faint); }
-  .item { flex-wrap: wrap; }
-  .item > span:first-of-type { flex: 1 1 12rem; min-width: 0; }
+  .item > span:first-of-type { min-width: 0; }
   .adj { font-weight: 700; color: var(--green); white-space: nowrap; }
   .limit-flag {
     display: none;
@@ -217,11 +217,12 @@
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    margin-left: auto;
-    flex-shrink: 0;
+    width: 7.4rem;
+    margin-top: 0.05rem;
   }
   .have input {
-    width: 4.4rem;
+    width: 4.1rem;
+    flex-shrink: 0;
     padding: 0.18rem 0.35rem;
     border: 1px solid var(--rule);
     border-radius: 5px;
@@ -232,7 +233,15 @@
     background: var(--card);
   }
   .have input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
-  .have-unit { font-size: 0.72rem; color: var(--faint); min-width: 2.2ch; }
+  .have-unit {
+    font-size: 0.7rem;
+    color: var(--faint);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .scale-status {
     display: flex;
     justify-content: space-between;
