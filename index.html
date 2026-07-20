@@ -172,7 +172,7 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .item input {
+  .item input[type="checkbox"] {
     appearance: none;
     width: 1.05rem; height: 1.05rem;
     margin-top: 0.18rem;
@@ -182,8 +182,8 @@
     cursor: pointer;
     position: relative;
   }
-  .item input:checked { background: var(--green); border-color: var(--green); }
-  .item input:checked::after {
+  .item input[type="checkbox"]:checked { background: var(--green); border-color: var(--green); }
+  .item input[type="checkbox"]:checked::after {
     content: "✓";
     color: #fff;
     font-size: 0.72rem;
@@ -191,9 +191,77 @@
     top: 50%; left: 50%;
     transform: translate(-50%, -52%);
   }
-  .item input:focus-visible { outline: 2px solid var(--marigold); outline-offset: 2px; }
-  .item input:checked + span { color: var(--faint); text-decoration: line-through; }
+  .item input[type="checkbox"]:focus-visible { outline: 2px solid var(--marigold); outline-offset: 2px; }
+  .item input[type="checkbox"]:checked + span { color: var(--faint); text-decoration: line-through; }
   .item .si { color: var(--faint); }
+  .item { flex-wrap: wrap; }
+  .item > span:first-of-type { flex: 1 1 12rem; min-width: 0; }
+  .adj { font-weight: 700; color: var(--green); white-space: nowrap; }
+  .limit-flag {
+    display: none;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--marigold);
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    margin-left: 0.4rem;
+    vertical-align: 0.1rem;
+    white-space: nowrap;
+  }
+  .item.limiting .limit-flag { display: inline-block; }
+  .item.limiting { background: #FBF3E4; border-radius: 6px; }
+  .have {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .have input {
+    width: 4.4rem;
+    padding: 0.18rem 0.35rem;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    font: inherit;
+    font-size: 0.85rem;
+    text-align: right;
+    color: var(--ink);
+    background: var(--card);
+  }
+  .have input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .have-unit { font-size: 0.72rem; color: var(--faint); min-width: 2.2ch; }
+  .scale-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--faint);
+    background: #E8EFE8;
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    margin: 0.55rem 0 0.35rem;
+  }
+  .scale-status strong { color: var(--green); }
+  .scale-reset {
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: none;
+    border: 1px solid var(--green);
+    border-radius: 5px;
+    padding: 0.15rem 0.5rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .scale-reset:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .scale-hint { font-size: 0.72rem; color: var(--faint); margin: 0.55rem 0 0.1rem; }
   .pantry {
     background: var(--ink);
     color: var(--paper);
@@ -240,15 +308,15 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Chicken thighs, boneless — 1.3 lb <span class="si">(600 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Coconut milk — 1 can <span class="si">(400 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Mild curry powder — 2 tbsp <span class="si">(14 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Tomato paste — 1 tbsp <span class="si">(16 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Honey — 1 tsp <span class="si">(7 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Frozen peas or broccoli — 1 cup <span class="si">(150 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
+      <label class="item" data-base="600" data-unit="g"><input type="checkbox"><span>Chicken thighs, boneless — 1.3 lb <span class="si">(600 g)</span></span></label>
+      <label class="item" data-base="400" data-unit="ml"><input type="checkbox"><span>Coconut milk — 1 can <span class="si">(400 ml)</span></span></label>
+      <label class="item" data-base="150" data-unit="g"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
+      <label class="item" data-base="3" data-unit="cloves"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
+      <label class="item" data-base="14" data-unit="g"><input type="checkbox"><span>Mild curry powder — 2 tbsp <span class="si">(14 g)</span></span></label>
+      <label class="item" data-base="16" data-unit="g"><input type="checkbox"><span>Tomato paste — 1 tbsp <span class="si">(16 g)</span></span></label>
+      <label class="item" data-base="7" data-unit="g"><input type="checkbox"><span>Honey — 1 tsp <span class="si">(7 g)</span></span></label>
+      <label class="item" data-base="150" data-unit="g"><input type="checkbox"><span>Frozen peas or broccoli — 1 cup <span class="si">(150 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
     </div>
   </details>
   <details>
@@ -272,16 +340,16 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Minced beef — 1.1 lb <span class="si">(500 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Soy sauce — 4 tbsp <span class="si">(60 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Brown sugar — 2 tbsp <span class="si">(25 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Sesame oil — 1 tbsp <span class="si">(15 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Fresh ginger — 1 tsp grated <span class="si">(5 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Green onions — 2</span></label>
-      <label class="item"><input type="checkbox"><span>Sesame seeds — 1 tsp <span class="si">(3 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Broccoli, to serve — 1 head <span class="si">(~300 g)</span></span></label>
+      <label class="item" data-base="500" data-unit="g"><input type="checkbox"><span>Minced beef — 1.1 lb <span class="si">(500 g)</span></span></label>
+      <label class="item" data-base="60" data-unit="ml"><input type="checkbox"><span>Soy sauce — 4 tbsp <span class="si">(60 ml)</span></span></label>
+      <label class="item" data-base="25" data-unit="g"><input type="checkbox"><span>Brown sugar — 2 tbsp <span class="si">(25 g)</span></span></label>
+      <label class="item" data-base="15" data-unit="ml"><input type="checkbox"><span>Sesame oil — 1 tbsp <span class="si">(15 ml)</span></span></label>
+      <label class="item" data-base="3" data-unit="cloves"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
+      <label class="item" data-base="5" data-unit="g"><input type="checkbox"><span>Fresh ginger — 1 tsp grated <span class="si">(5 g)</span></span></label>
+      <label class="item" data-base="2" data-unit=""><input type="checkbox"><span>Green onions — 2</span></label>
+      <label class="item" data-base="3" data-unit="g"><input type="checkbox"><span>Sesame seeds — 1 tsp <span class="si">(3 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Broccoli, to serve — 1 head <span class="si">(~300 g)</span></span></label>
     </div>
   </details>
   <details>
@@ -304,14 +372,14 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Short-grain (sushi) rice — 2 cups dry <span class="si">(400 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Canned tuna — 2 cans <span class="si">(2 × 140 g drained)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Mayonnaise — 3 tbsp <span class="si">(45 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Nori / gim seaweed — 4 sheets</span></label>
-      <label class="item"><input type="checkbox"><span>Eggs — 3</span></label>
-      <label class="item"><input type="checkbox"><span>Carrot — 1 medium <span class="si">(~70 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Cucumber — ½ <span class="si">(~100 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Sesame oil — 2 tbsp <span class="si">(30 ml)</span></span></label>
+      <label class="item" data-base="400" data-unit="g"><input type="checkbox"><span>Short-grain (sushi) rice — 2 cups dry <span class="si">(400 g)</span></span></label>
+      <label class="item" data-base="2" data-unit="cans"><input type="checkbox"><span>Canned tuna — 2 cans <span class="si">(2 × 140 g drained)</span></span></label>
+      <label class="item" data-base="45" data-unit="g"><input type="checkbox"><span>Mayonnaise — 3 tbsp <span class="si">(45 g)</span></span></label>
+      <label class="item" data-base="4" data-unit="sheets"><input type="checkbox"><span>Nori / gim seaweed — 4 sheets</span></label>
+      <label class="item" data-base="3" data-unit="eggs"><input type="checkbox"><span>Eggs — 3</span></label>
+      <label class="item" data-base="70" data-unit="g"><input type="checkbox"><span>Carrot — 1 medium <span class="si">(~70 g)</span></span></label>
+      <label class="item" data-base="100" data-unit="g"><input type="checkbox"><span>Cucumber — ½ <span class="si">(~100 g)</span></span></label>
+      <label class="item" data-base="30" data-unit="ml"><input type="checkbox"><span>Sesame oil — 2 tbsp <span class="si">(30 ml)</span></span></label>
       <label class="item"><input type="checkbox"><span>Pickled radish (danmuji) — optional, 4 strips</span></label>
       <label class="item"><input type="checkbox"><span>Bamboo rolling mat — one-time buy</span></label>
     </div>
@@ -337,13 +405,13 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Shrimp, peeled &amp; deveined — 1 lb <span class="si">(450 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Honey — 3 tbsp <span class="si">(63 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Soy sauce — 2 tbsp <span class="si">(30 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Rice vinegar — 1 tbsp <span class="si">(15 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Sesame oil — 1 tbsp <span class="si">(15 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Cornstarch — 1 tsp <span class="si">(3 g)</span></span></label>
+      <label class="item" data-base="450" data-unit="g"><input type="checkbox"><span>Shrimp, peeled &amp; deveined — 1 lb <span class="si">(450 g)</span></span></label>
+      <label class="item" data-base="63" data-unit="g"><input type="checkbox"><span>Honey — 3 tbsp <span class="si">(63 g)</span></span></label>
+      <label class="item" data-base="30" data-unit="ml"><input type="checkbox"><span>Soy sauce — 2 tbsp <span class="si">(30 ml)</span></span></label>
+      <label class="item" data-base="15" data-unit="ml"><input type="checkbox"><span>Rice vinegar — 1 tbsp <span class="si">(15 ml)</span></span></label>
+      <label class="item" data-base="15" data-unit="ml"><input type="checkbox"><span>Sesame oil — 1 tbsp <span class="si">(15 ml)</span></span></label>
+      <label class="item" data-base="3" data-unit="cloves"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
+      <label class="item" data-base="3" data-unit="g"><input type="checkbox"><span>Cornstarch — 1 tsp <span class="si">(3 g)</span></span></label>
       <label class="item"><input type="checkbox"><span>Rice + broccoli, to serve</span></label>
     </div>
   </details>
@@ -369,15 +437,15 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Minced beef — 1.1 lb <span class="si">(500 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Potatoes — 2 medium <span class="si">(~300 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Tomato sauce — 1 can (8 oz) <span class="si">(225 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Beef broth — ½ cup <span class="si">(120 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Cinnamon — ¼ tsp <span class="si">(0.6 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Green olives — ⅓ cup <span class="si">(45 g)</span> — Cuban version only</span></label>
+      <label class="item" data-base="500" data-unit="g"><input type="checkbox"><span>Minced beef — 1.1 lb <span class="si">(500 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Potatoes — 2 medium <span class="si">(~300 g)</span></span></label>
+      <label class="item" data-base="150" data-unit="g"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
+      <label class="item" data-base="3" data-unit="cloves"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
+      <label class="item" data-base="225" data-unit="g"><input type="checkbox"><span>Tomato sauce — 1 can (8 oz) <span class="si">(225 g)</span></span></label>
+      <label class="item" data-base="120" data-unit="ml"><input type="checkbox"><span>Beef broth — ½ cup <span class="si">(120 ml)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
+      <label class="item" data-base="0.6" data-unit="g"><input type="checkbox"><span>Cinnamon — ¼ tsp <span class="si">(0.6 g)</span></span></label>
+      <label class="item" data-base="45" data-unit="g"><input type="checkbox"><span>Green olives — ⅓ cup <span class="si">(45 g)</span> — Cuban version only</span></label>
     </div>
   </details>
   <details>
@@ -400,14 +468,14 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Chicken (or 1 rotisserie) — 1.5 lb <span class="si">(700 g)</span></span></label>
+      <label class="item" data-base="700" data-unit="g"><input type="checkbox"><span>Chicken (or 1 rotisserie) — 1.5 lb <span class="si">(700 g)</span></span></label>
       <label class="item"><input type="checkbox"><span>Chipotles in adobo — 1 can (use ½–1 pepper)</span></label>
-      <label class="item"><input type="checkbox"><span>Fire-roasted diced tomatoes — 1 can (14 oz) <span class="si">(400 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 4 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Dried oregano — 1 tsp <span class="si">(1 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Chicken broth — ½ cup <span class="si">(120 ml)</span></span></label>
+      <label class="item" data-base="400" data-unit="g"><input type="checkbox"><span>Fire-roasted diced tomatoes — 1 can (14 oz) <span class="si">(400 g)</span></span></label>
+      <label class="item" data-base="150" data-unit="g"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
+      <label class="item" data-base="4" data-unit="cloves"><input type="checkbox"><span>Garlic — 4 cloves</span></label>
+      <label class="item" data-base="1" data-unit="g"><input type="checkbox"><span>Dried oregano — 1 tsp <span class="si">(1 g)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
+      <label class="item" data-base="120" data-unit="ml"><input type="checkbox"><span>Chicken broth — ½ cup <span class="si">(120 ml)</span></span></label>
       <label class="item"><input type="checkbox"><span>Tortillas or tostadas</span></label>
     </div>
   </details>
@@ -431,13 +499,13 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Flank or skirt steak — 1.5 lb <span class="si">(700 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Orange — 1 (juiced, ~½ cup) <span class="si">(120 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Limes — 2 (juiced, ~¼ cup) <span class="si">(60 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Soy sauce — 2 tbsp <span class="si">(30 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 4 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Fresh cilantro — ½ bunch <span class="si">(~25 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
+      <label class="item" data-base="700" data-unit="g"><input type="checkbox"><span>Flank or skirt steak — 1.5 lb <span class="si">(700 g)</span></span></label>
+      <label class="item" data-base="1" data-unit=""><input type="checkbox"><span>Orange — 1 (juiced, ~½ cup) <span class="si">(120 ml)</span></span></label>
+      <label class="item" data-base="2" data-unit=""><input type="checkbox"><span>Limes — 2 (juiced, ~¼ cup) <span class="si">(60 ml)</span></span></label>
+      <label class="item" data-base="30" data-unit="ml"><input type="checkbox"><span>Soy sauce — 2 tbsp <span class="si">(30 ml)</span></span></label>
+      <label class="item" data-base="4" data-unit="cloves"><input type="checkbox"><span>Garlic — 4 cloves</span></label>
+      <label class="item" data-base="25" data-unit="g"><input type="checkbox"><span>Fresh cilantro — ½ bunch <span class="si">(~25 g)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
       <label class="item"><input type="checkbox"><span>Tortillas</span></label>
     </div>
   </details>
@@ -461,14 +529,14 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Tilapia or cod fillets — 1 lb <span class="si">(450 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Chili powder — 1 tsp <span class="si">(2.5 g)</span> — omit for toddler</span></label>
-      <label class="item"><input type="checkbox"><span>Garlic powder — 1 tsp <span class="si">(3 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Corn tortillas — 8</span></label>
-      <label class="item"><input type="checkbox"><span>Lime — 1</span></label>
-      <label class="item"><input type="checkbox"><span>Cabbage — ¼ head, shredded <span class="si">(~200 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Sour cream or mayo — ¼ cup <span class="si">(60 g)</span></span></label>
+      <label class="item" data-base="450" data-unit="g"><input type="checkbox"><span>Tilapia or cod fillets — 1 lb <span class="si">(450 g)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
+      <label class="item" data-base="2.5" data-unit="g"><input type="checkbox"><span>Chili powder — 1 tsp <span class="si">(2.5 g)</span> — omit for toddler</span></label>
+      <label class="item" data-base="3" data-unit="g"><input type="checkbox"><span>Garlic powder — 1 tsp <span class="si">(3 g)</span></span></label>
+      <label class="item" data-base="8" data-unit=""><input type="checkbox"><span>Corn tortillas — 8</span></label>
+      <label class="item" data-base="1" data-unit=""><input type="checkbox"><span>Lime — 1</span></label>
+      <label class="item" data-base="200" data-unit="g"><input type="checkbox"><span>Cabbage — ¼ head, shredded <span class="si">(~200 g)</span></span></label>
+      <label class="item" data-base="60" data-unit="g"><input type="checkbox"><span>Sour cream or mayo — ¼ cup <span class="si">(60 g)</span></span></label>
     </div>
   </details>
   <details>
@@ -491,16 +559,16 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Firm white fish (cod/tilapia) — 1.1 lb <span class="si">(500 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Coconut milk — 1 can <span class="si">(400 ml)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Tomatoes — 2 fresh or 1 can <span class="si">(400 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Bell peppers — 2 <span class="si">(~300 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
-      <label class="item"><input type="checkbox"><span>Lime — 1</span></label>
-      <label class="item"><input type="checkbox"><span>Sweet paprika — 1 tbsp <span class="si">(7 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Fresh cilantro — ½ bunch <span class="si">(~25 g)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
+      <label class="item" data-base="500" data-unit="g"><input type="checkbox"><span>Firm white fish (cod/tilapia) — 1.1 lb <span class="si">(500 g)</span></span></label>
+      <label class="item" data-base="400" data-unit="ml"><input type="checkbox"><span>Coconut milk — 1 can <span class="si">(400 ml)</span></span></label>
+      <label class="item" data-base="400" data-unit="g"><input type="checkbox"><span>Tomatoes — 2 fresh or 1 can <span class="si">(400 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Bell peppers — 2 <span class="si">(~300 g)</span></span></label>
+      <label class="item" data-base="150" data-unit="g"><input type="checkbox"><span>Onion — 1 medium <span class="si">(~150 g)</span></span></label>
+      <label class="item" data-base="3" data-unit="cloves"><input type="checkbox"><span>Garlic — 3 cloves</span></label>
+      <label class="item" data-base="1" data-unit=""><input type="checkbox"><span>Lime — 1</span></label>
+      <label class="item" data-base="7" data-unit="g"><input type="checkbox"><span>Sweet paprika — 1 tbsp <span class="si">(7 g)</span></span></label>
+      <label class="item" data-base="25" data-unit="g"><input type="checkbox"><span>Fresh cilantro — ½ bunch <span class="si">(~25 g)</span></span></label>
+      <label class="item" data-base="300" data-unit="g"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
     </div>
   </details>
   <details>
@@ -527,31 +595,31 @@
     <summary>Shopping list</summary>
     <div class="list">
       <p class="grp">Cookie batter — wet</p>
-      <label class="item"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 40 g <span class="si">(3 tbsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Egg whites — 25 ml <span class="si">(1 tbsp + 2 tsp)</span></span></label>
+      <label class="item" data-base="40" data-unit="g"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 40 g <span class="si">(3 tbsp)</span></span></label>
+      <label class="item" data-base="25" data-unit="ml"><input type="checkbox"><span>Egg whites — 25 ml <span class="si">(1 tbsp + 2 tsp)</span></span></label>
       <label class="item"><input type="checkbox"><span>Vanilla extract — ½ tsp <span class="si">(2.1 ml)</span> — optional</span></label>
       <p class="grp">Cookie batter — dry</p>
-      <label class="item"><input type="checkbox"><span>All-purpose flour — 10 g <span class="si">(1 tbsp + 1 tsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Casein protein powder — 10 g <span class="si">(⅓ scoop)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Oat flour — 5 g <span class="si">(2 tsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Granulated sugar substitute — 24 g <span class="si">(2 tbsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Baking soda — 1 g <span class="si">(¼ tsp)</span></span></label>
+      <label class="item" data-base="10" data-unit="g"><input type="checkbox"><span>All-purpose flour — 10 g <span class="si">(1 tbsp + 1 tsp)</span></span></label>
+      <label class="item" data-base="10" data-unit="g"><input type="checkbox"><span>Casein protein powder — 10 g <span class="si">(⅓ scoop)</span></span></label>
+      <label class="item" data-base="5" data-unit="g"><input type="checkbox"><span>Oat flour — 5 g <span class="si">(2 tsp)</span></span></label>
+      <label class="item" data-base="24" data-unit="g"><input type="checkbox"><span>Granulated sugar substitute — 24 g <span class="si">(2 tbsp)</span></span></label>
+      <label class="item" data-base="1" data-unit="g"><input type="checkbox"><span>Baking soda — 1 g <span class="si">(¼ tsp)</span></span></label>
       <label class="item"><input type="checkbox"><span>Salt — pinch</span></label>
       <p class="grp">Brownie batter — wet</p>
-      <label class="item"><input type="checkbox"><span>Egg whites — 120 ml <span class="si">(½ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 80 g <span class="si">(⅓ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Pumpkin purée — 120 g <span class="si">(½ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Almond milk — 120 ml <span class="si">(½ cup)</span></span></label>
+      <label class="item" data-base="120" data-unit="ml"><input type="checkbox"><span>Egg whites — 120 ml <span class="si">(½ cup)</span></span></label>
+      <label class="item" data-base="80" data-unit="g"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 80 g <span class="si">(⅓ cup)</span></span></label>
+      <label class="item" data-base="120" data-unit="g"><input type="checkbox"><span>Pumpkin purée — 120 g <span class="si">(½ cup)</span></span></label>
+      <label class="item" data-base="120" data-unit="ml"><input type="checkbox"><span>Almond milk — 120 ml <span class="si">(½ cup)</span></span></label>
       <p class="grp">Brownie batter — dry</p>
-      <label class="item"><input type="checkbox"><span>All-purpose flour — 35 g <span class="si">(¼ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Granulated sugar substitute — 72–96 g <span class="si">(6–8 tbsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Whey/casein blend protein powder — 20 g <span class="si">(⅔ scoop)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Black or dark cocoa powder — 25 g <span class="si">(¼ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Baking soda — 2 g <span class="si">(⅓ tsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Baking powder — 2 g <span class="si">(½ tsp)</span></span></label>
+      <label class="item" data-base="35" data-unit="g"><input type="checkbox"><span>All-purpose flour — 35 g <span class="si">(¼ cup)</span></span></label>
+      <label class="item" data-base="84" data-unit="g"><input type="checkbox"><span>Granulated sugar substitute — 72–96 g <span class="si">(6–8 tbsp)</span></span></label>
+      <label class="item" data-base="20" data-unit="g"><input type="checkbox"><span>Whey/casein blend protein powder — 20 g <span class="si">(⅔ scoop)</span></span></label>
+      <label class="item" data-base="25" data-unit="g"><input type="checkbox"><span>Black or dark cocoa powder — 25 g <span class="si">(¼ cup)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Baking soda — 2 g <span class="si">(⅓ tsp)</span></span></label>
+      <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Baking powder — 2 g <span class="si">(½ tsp)</span></span></label>
       <label class="item"><input type="checkbox"><span>Salt — pinch</span></label>
       <p class="grp">Topping</p>
-      <label class="item"><input type="checkbox"><span>Chocolate chips — 10 g</span></label>
+      <label class="item" data-base="10" data-unit="g"><input type="checkbox"><span>Chocolate chips — 10 g</span></label>
       <label class="item"><input type="checkbox"><span>Two 5- or 6-inch springform pans — one-time buy</span></label>
     </div>
   </details>
@@ -579,12 +647,12 @@
   <details>
     <summary>Shopping list</summary>
     <div class="list">
-      <label class="item"><input type="checkbox"><span>Ripe bananas — 4 <span class="si">(~350 g flesh)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Eggs — 3 medium</span></label>
-      <label class="item"><input type="checkbox"><span>Cottage cheese, 0% fat — 250 g <span class="si">(1 cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Cocoa powder — 30 g <span class="si">(¼ cup)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Maple syrup — 30 g <span class="si">(1½ tbsp)</span></span></label>
-      <label class="item"><input type="checkbox"><span>Baking powder — 2 tsp <span class="si">(8 g)</span></span></label>
+      <label class="item" data-base="4" data-unit="bananas"><input type="checkbox"><span>Ripe bananas — 4 <span class="si">(~350 g flesh)</span></span></label>
+      <label class="item" data-base="3" data-unit="eggs"><input type="checkbox"><span>Eggs — 3 medium</span></label>
+      <label class="item" data-base="250" data-unit="g"><input type="checkbox"><span>Cottage cheese, 0% fat — 250 g <span class="si">(1 cup)</span></span></label>
+      <label class="item" data-base="30" data-unit="g"><input type="checkbox"><span>Cocoa powder — 30 g <span class="si">(¼ cup)</span></span></label>
+      <label class="item" data-base="30" data-unit="g"><input type="checkbox"><span>Maple syrup — 30 g <span class="si">(1½ tbsp)</span></span></label>
+      <label class="item" data-base="2" data-unit="tsp"><input type="checkbox"><span>Baking powder — 2 tsp <span class="si">(8 g)</span></span></label>
     </div>
   </details>
   <details>
@@ -623,7 +691,7 @@
       canStore = true;
     } catch (e) { canStore = false; }
 
-    var boxes = document.querySelectorAll('.item input');
+    var boxes = document.querySelectorAll('.item input[type="checkbox"]');
     boxes.forEach(function (box, i) {
       var key = 'fki-item-' + i;
       if (canStore && localStorage.getItem(key) === '1') box.checked = true;
@@ -704,6 +772,115 @@
         }, 50);
       }
     }
+  })();
+
+  // Scale-to-what-you-have: each ingredient with a data-base quantity gets a
+  // "have" input. The recipe scales live to the most limiting provided
+  // ingredient; base amounts stay visible and the limiter is flagged.
+  (function () {
+    function fmt(n) {
+      if (!isFinite(n)) return '';
+      if (n >= 100) return String(Math.round(n));
+      if (n >= 10) return String(Math.round(n * 10) / 10);
+      return String(Math.round(n * 100) / 100);
+    }
+
+    document.querySelectorAll('article.ticket').forEach(function (card) {
+      var rows = [];
+
+      card.querySelectorAll('.item[data-base]').forEach(function (label) {
+        var base = parseFloat(label.getAttribute('data-base'));
+        if (!base) return;
+        var unit = label.getAttribute('data-unit') || '';
+        var text = label.querySelector('span');
+
+        var adj = document.createElement('span');
+        adj.className = 'adj';
+        var flag = document.createElement('span');
+        flag.className = 'limit-flag';
+        flag.textContent = 'limiting';
+        text.appendChild(adj);
+        text.appendChild(flag);
+
+        var wrap = document.createElement('span');
+        wrap.className = 'have';
+        var input = document.createElement('input');
+        input.type = 'number';
+        input.min = '0';
+        input.step = 'any';
+        input.inputMode = 'decimal';
+        input.placeholder = 'have';
+        input.setAttribute('aria-label',
+          'Amount you have' + (unit ? ' in ' + unit : '') + ' (recipe needs ' + fmt(base) + (unit ? ' ' + unit : '') + ')');
+        var u = document.createElement('span');
+        u.className = 'have-unit';
+        u.textContent = unit;
+        wrap.appendChild(input);
+        wrap.appendChild(u);
+        label.appendChild(wrap);
+
+        // keep clicks on the input from toggling the row's checkbox
+        wrap.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
+        input.addEventListener('input', update);
+
+        rows.push({ label: label, base: base, unit: unit, input: input, adj: adj });
+      });
+      if (!rows.length) return;
+
+      var list = card.querySelector('.list');
+      var status = document.createElement('p');
+      status.className = 'scale-status';
+      status.style.display = 'none';
+      status.setAttribute('aria-live', 'polite');
+      var statusText = document.createElement('span');
+      var reset = document.createElement('button');
+      reset.type = 'button';
+      reset.className = 'scale-reset';
+      reset.textContent = 'Reset';
+      reset.addEventListener('click', function () {
+        rows.forEach(function (r) { r.input.value = ''; });
+        update();
+      });
+      status.appendChild(statusText);
+      status.appendChild(reset);
+      var hint = document.createElement('p');
+      hint.className = 'scale-hint';
+      hint.textContent = 'Have less of something? Type what you have and the recipe rescales to the limiting ingredient.';
+      list.insertBefore(status, list.firstChild);
+      list.insertBefore(hint, status);
+
+      function update() {
+        var provided = rows.filter(function (r) {
+          return r.input.value !== '' && parseFloat(r.input.value) >= 0;
+        });
+        var minR = Infinity, limiters = [];
+        provided.forEach(function (r) {
+          var ratio = parseFloat(r.input.value) / r.base;
+          if (ratio < minR - 1e-9) { minR = ratio; limiters = [r]; }
+          else if (Math.abs(ratio - minR) <= 1e-9) { limiters.push(r); }
+        });
+
+        rows.forEach(function (r) {
+          r.label.classList.remove('limiting');
+          r.adj.textContent = provided.length
+            ? ' → ' + fmt(r.base * minR) + (r.unit ? ' ' + r.unit : '')
+            : '';
+        });
+
+        if (provided.length) {
+          limiters.forEach(function (r) { r.label.classList.add('limiting'); });
+          var names = limiters.map(function (r) {
+            return r.label.querySelector('span').childNodes[0].textContent.split('—')[0].trim();
+          });
+          statusText.innerHTML = 'Scaled to <strong>' + Math.round(minR * 100) + '%</strong> — limited by <strong></strong>.';
+          statusText.querySelectorAll('strong')[1].textContent = names.join(', ');
+          status.style.display = '';
+        } else {
+          statusText.textContent = '';
+          status.style.display = 'none';
+        }
+      }
+    });
   })();
 </script>
 
