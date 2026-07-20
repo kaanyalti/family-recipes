@@ -109,20 +109,23 @@
   .links a + a { margin-left: 1rem; }
   .links a:hover, .links a:focus-visible { border-bottom-color: var(--green); }
   .share {
-    font: inherit;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--green);
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
     background: none;
     border: none;
-    border-bottom: 1.5px dashed #B9CFBE;
-    padding: 0;
-    margin-left: 1rem;
+    padding: 0.4rem;
     cursor: pointer;
+    color: var(--faint);
+    line-height: 0;
+    border-radius: 6px;
   }
-  .share:hover, .share:focus-visible { border-bottom-color: var(--green); }
-  .share.copied { color: var(--marigold); border-bottom-color: transparent; }
-  article.ticket { scroll-margin-top: 1rem; }
+  .share svg { width: 1.1rem; height: 1.1rem; display: block; }
+  .share:hover { color: var(--green); background: #E8EFE8; }
+  .share:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .share.copied { color: var(--green); }
+  .ticket-top { padding-right: 2.1rem; }
+  article.ticket { position: relative; scroll-margin-top: 1rem; }
   article.ticket.linked { border-color: var(--green); }
   details { border-top: 1px dashed var(--rule); }
   summary {
@@ -610,10 +613,12 @@
   (function () {
     var base = location.origin + location.pathname;
 
+    var LINK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+    var CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+
     document.querySelectorAll('article.ticket').forEach(function (card) {
       var h3 = card.querySelector('h3');
-      var links = card.querySelector('.links');
-      if (!h3 || !links) return;
+      if (!h3) return;
 
       var slug = h3.textContent.toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -623,17 +628,18 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'share';
-      btn.textContent = 'Copy link';
+      btn.innerHTML = LINK_ICON;
+      btn.title = 'Copy link';
       btn.setAttribute('aria-label', 'Copy shareable link to ' + h3.textContent);
       btn.addEventListener('click', function () {
         var url = base + '#' + slug;
 
         function done(ok) {
           if (!ok) { window.prompt('Copy this link:', url); return; }
-          btn.textContent = 'Link copied ✓';
+          btn.innerHTML = CHECK_ICON;
           btn.classList.add('copied');
           setTimeout(function () {
-            btn.textContent = 'Copy link';
+            btn.innerHTML = LINK_ICON;
             btn.classList.remove('copied');
           }, 2000);
         }
@@ -656,7 +662,7 @@
           fallback();
         }
       });
-      links.appendChild(btn);
+      card.appendChild(btn);
     });
 
     if (location.hash) {
