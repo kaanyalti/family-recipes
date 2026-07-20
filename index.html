@@ -127,6 +127,24 @@
   details[open] summary::after { content: "–"; }
   summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
   .list { padding: 0 1.15rem 1.05rem; }
+  .grp {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0.7rem 0 0.15rem;
+  }
+  .grp:first-child { margin-top: 0.25rem; }
+  .steps { padding: 0 1.15rem 1.05rem; margin: 0; }
+  .steps li { margin: 0 0 0.5rem 1.1rem; padding-left: 0.15rem; }
+  .steps li:last-child { margin-bottom: 0; }
+  .macros {
+    margin-top: 0.55rem;
+    font-size: 0.86rem;
+    color: var(--faint);
+  }
+  .macros strong { color: var(--green); }
   .item {
     display: flex;
     align-items: flex-start;
@@ -186,7 +204,7 @@
 <header>
   <p class="eyebrow">Easy · Batch-friendly · Toddler-approved</p>
   <h1>Family Kitchen Index</h1>
-  <p class="intro">The new rotation: nine recipes, each with its trusted source links and a tap-to-check shopping list.</p>
+  <p class="intro">The new rotation: ten recipes, each with its trusted source links and a tap-to-check shopping list.</p>
   <p class="unit-note">Amounts show the recipe's unit first, SI in parentheses — weight used for dry cup/spoon measures.</p>
 </header>
 
@@ -391,6 +409,61 @@
       <label class="item"><input type="checkbox"><span>Fresh cilantro — ½ bunch <span class="si">(~25 g)</span></span></label>
       <label class="item"><input type="checkbox"><span>Rice, to serve — 1½ cups dry <span class="si">(300 g)</span></span></label>
     </div>
+  </details>
+</article>
+
+<h2>Dessert</h2>
+
+<article class="ticket">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>High Protein Chocolate Brownie</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">A brownie base with a protein-cookie top. Makes 2 trays — freezer-friendly. Add more flour to the brownie batter for a denser bite.</p>
+    <p class="links"><a href="https://www.instagram.com/nickkaz.fit/">Recipe by @nickkaz.fit</a></p>
+    <p class="macros"><strong>Per tray:</strong> 32 g protein · 32 g carbs · 5 g fat · 305 kcal</p>
+  </div>
+  <details>
+    <summary>Shopping list</summary>
+    <div class="list">
+      <p class="grp">Cookie batter — wet</p>
+      <label class="item"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 40 g <span class="si">(3 tbsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Egg whites — 25 ml <span class="si">(1 tbsp + 2 tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Vanilla extract — ½ tsp <span class="si">(2.1 ml)</span> — optional</span></label>
+      <p class="grp">Cookie batter — dry</p>
+      <label class="item"><input type="checkbox"><span>All-purpose flour — 10 g <span class="si">(1 tbsp + 1 tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Casein protein powder — 10 g <span class="si">(⅓ scoop)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Oat flour — 5 g <span class="si">(2 tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Granulated sugar substitute — 24 g <span class="si">(2 tbsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Baking soda — 1 g <span class="si">(¼ tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Salt — pinch</span></label>
+      <p class="grp">Brownie batter — wet</p>
+      <label class="item"><input type="checkbox"><span>Egg whites — 120 ml <span class="si">(½ cup)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Nonfat Greek yogurt (plain or vanilla) — 80 g <span class="si">(⅓ cup)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Pumpkin purée — 120 g <span class="si">(½ cup)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Almond milk — 120 ml <span class="si">(½ cup)</span></span></label>
+      <p class="grp">Brownie batter — dry</p>
+      <label class="item"><input type="checkbox"><span>All-purpose flour — 35 g <span class="si">(¼ cup)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Granulated sugar substitute — 72–96 g <span class="si">(6–8 tbsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Whey/casein blend protein powder — 20 g <span class="si">(⅔ scoop)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Black or dark cocoa powder — 25 g <span class="si">(¼ cup)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Baking soda — 2 g <span class="si">(⅓ tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Baking powder — 2 g <span class="si">(½ tsp)</span></span></label>
+      <label class="item"><input type="checkbox"><span>Salt — pinch</span></label>
+      <p class="grp">Topping</p>
+      <label class="item"><input type="checkbox"><span>Chocolate chips — 10 g</span></label>
+      <label class="item"><input type="checkbox"><span>Two 5- or 6-inch springform pans — one-time buy</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>Method</summary>
+    <ol class="steps">
+      <li>Preheat oven to 180 °C / 350 °F and lightly spray two 5- or 6-inch springform pans.</li>
+      <li>Mix the cookie batter wet and dry ingredients separately, then combine.</li>
+      <li>Mix the brownie batter wet and dry ingredients separately, then combine. Do not overmix.</li>
+      <li>Divide the brownie batter evenly between both pans.</li>
+      <li>Dollop the cookie batter over the brownie batter, gently spread, and add the choc chips.</li>
+      <li>Bake 28–38 min (6-inch) or 32–42 min (5-inch), until the edges are set and the centers are slightly soft.</li>
+      <li>Cool in the pans for 30 minutes before removing.</li>
+    </ol>
   </details>
 </article>
 
