@@ -1,7 +1,7 @@
 # Family Kitchen Index
 
 A single-page recipe reference: nine easy, batch-friendly family recipes with links
-to trusted sources and a tap-to-check shopping list per recipe. Amounts show the
+to trusted sources and a tap-to-check ingredient list per recipe. Amounts show the
 original recipe unit first with SI in parentheses (weight preferred for dry
 cup/spoon measures).
 
@@ -24,7 +24,7 @@ gh api repos/{owner}/family-recipes/pages -X POST \
 ## Editing
 
 Each recipe is an `<article class="ticket">` block in `index.html`. Copy one,
-change the title, links, and list items to add a recipe. Checked shopping-list
+change the title, links, and list items to add a recipe. Checked ingredient-list
 items persist in the browser via localStorage.
 
 Every recipe gets a "Copy link" button and a URL anchor derived from its title
