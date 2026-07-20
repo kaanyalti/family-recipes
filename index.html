@@ -108,6 +108,22 @@
   }
   .links a + a { margin-left: 1rem; }
   .links a:hover, .links a:focus-visible { border-bottom-color: var(--green); }
+  .share {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--green);
+    background: none;
+    border: none;
+    border-bottom: 1.5px dashed #B9CFBE;
+    padding: 0;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+  .share:hover, .share:focus-visible { border-bottom-color: var(--green); }
+  .share.copied { color: var(--marigold); border-bottom-color: transparent; }
+  article.ticket { scroll-margin-top: 1rem; }
+  article.ticket.linked { border-color: var(--green); }
   details { border-top: 1px dashed var(--rule); }
   summary {
     list-style: none;
@@ -587,6 +603,72 @@
         } catch (e) { /* ignore */ }
       });
     });
+  })();
+
+  // Shareable links: give each recipe an anchor derived from its title and
+  // a "Copy link" button; opening a shared link scrolls to that recipe.
+  (function () {
+    var base = location.origin + location.pathname;
+
+    document.querySelectorAll('article.ticket').forEach(function (card) {
+      var h3 = card.querySelector('h3');
+      var links = card.querySelector('.links');
+      if (!h3 || !links) return;
+
+      var slug = h3.textContent.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      card.id = slug;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'share';
+      btn.textContent = 'Copy link';
+      btn.setAttribute('aria-label', 'Copy shareable link to ' + h3.textContent);
+      btn.addEventListener('click', function () {
+        var url = base + '#' + slug;
+
+        function done(ok) {
+          if (!ok) { window.prompt('Copy this link:', url); return; }
+          btn.textContent = 'Link copied ✓';
+          btn.classList.add('copied');
+          setTimeout(function () {
+            btn.textContent = 'Copy link';
+            btn.classList.remove('copied');
+          }, 2000);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          var ok = false;
+          try { ok = document.execCommand('copy'); } catch (e) { /* ignore */ }
+          document.body.removeChild(ta);
+          done(ok);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { done(true); }, fallback);
+        } else {
+          fallback();
+        }
+      });
+      links.appendChild(btn);
+    });
+
+    if (location.hash) {
+      var target = document.getElementById(location.hash.slice(1));
+      if (target && target.classList.contains('ticket')) {
+        target.querySelectorAll('details').forEach(function (d) { d.open = true; });
+        target.classList.add('linked');
+        setTimeout(function () {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      }
+    }
   })();
 </script>
 

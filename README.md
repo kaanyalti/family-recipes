@@ -26,3 +26,7 @@ gh api repos/{owner}/family-recipes/pages -X POST \
 Each recipe is an `<article class="ticket">` block in `index.html`. Copy one,
 change the title, links, and list items to add a recipe. Checked shopping-list
 items persist in the browser via localStorage.
+
+Every recipe gets a "Copy link" button and a URL anchor derived from its title
+(e.g. `#carne-asada`), so new recipes are shareable automatically. Opening a
+shared link scrolls to that recipe with its sections expanded.
