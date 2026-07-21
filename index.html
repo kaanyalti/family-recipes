@@ -291,13 +291,42 @@
     .ticket { transition: border-color 0.15s ease; }
     .ticket:hover { border-color: var(--green); }
   }
+  .side { display: none; }
+  .side-h {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 1.1rem 0 0.25rem 0.6rem;
+  }
+  .side-h:first-child { margin-top: 0; }
+  .side-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: none;
+    border: none;
+    border-radius: 7px;
+    padding: 0.38rem 0.6rem;
+    cursor: pointer;
+  }
+  .side-link:hover { background: #E8EFE8; }
+  .side-link:focus-visible { outline: 2px solid var(--green); }
+  .side-link.active { background: var(--green); color: #fff; font-weight: 700; }
+  .side-link .star { color: var(--marigold); font-size: 0.75em; margin-left: 0.3rem; }
+  .side-link.active .star { color: #FBE3B8; }
   @media (min-width: 900px) {
-    header, main, footer { max-width: 1060px; }
-    header { padding: 3.5rem 2rem 2rem; }
+    header, main, footer { max-width: 1150px; }
+    header { padding: 3rem 2rem 1.6rem; }
     main, footer { padding-left: 2rem; padding-right: 2rem; }
-    h1 { font-size: 3.1rem; }
+    h1 { font-size: 2.9rem; }
     .intro { font-size: 1.05rem; max-width: 52ch; }
     h2 { font-size: 1.45rem; margin: 2.75rem 0 1.2rem; }
+    /* no-JS fallback: two-column card grid */
     .cards {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -305,6 +334,37 @@
       align-items: start;
     }
     .cards .ticket { margin-bottom: 0; }
+    /* master-detail (body.desktop is set by JS) */
+    body.desktop .jump { display: none; }
+    body.desktop main {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: start;
+    }
+    body.desktop main > h2 { display: none; }
+    body.desktop .cards { display: contents; }
+    body.desktop article.ticket { display: none; }
+    body.desktop .side {
+      display: block;
+      grid-column: 1;
+      grid-row: 1;
+      position: sticky;
+      top: 1.2rem;
+      max-height: calc(100vh - 2.4rem);
+      overflow: auto;
+      padding: 0.4rem 0;
+    }
+    body.desktop article.ticket.active {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column: 2;
+      grid-row: 1;
+    }
+    body.desktop article.ticket.active .ticket-head { grid-column: 1 / -1; }
+    body.desktop article.ticket.active details:nth-of-type(2) { border-left: 1px dashed var(--rule); }
+    body.desktop article.ticket.active .ticket-head { padding: 1.4rem 1.5rem 1.1rem; }
+    body.desktop article.ticket.active h3 { font-size: 1.45rem; }
   }
 </style>
 </head>
@@ -908,6 +968,76 @@
         }
       }
     });
+  })();
+
+  // Desktop master-detail: a sticky recipe index on the left, the selected
+  // recipe shown in full (all sections open) on the right. Mobile keeps
+  // the card list; the layout switches live at the 900px breakpoint.
+  (function () {
+    var mq = window.matchMedia('(min-width: 900px)');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('article.ticket'));
+    if (!cards.length) return;
+
+    var aside = document.createElement('aside');
+    aside.className = 'side';
+    aside.setAttribute('aria-label', 'Recipes');
+    var linkById = {};
+    document.querySelectorAll('main > h2').forEach(function (h2) {
+      var head = document.createElement('p');
+      head.className = 'side-h';
+      head.textContent = h2.textContent;
+      aside.appendChild(head);
+      var wrap = h2.nextElementSibling;
+      if (!wrap || !wrap.classList.contains('cards')) return;
+      wrap.querySelectorAll('article.ticket').forEach(function (a) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'side-link';
+        b.textContent = a.querySelector('h3').textContent;
+        if (a.querySelector('.batch')) {
+          var star = document.createElement('span');
+          star.className = 'star';
+          star.textContent = '\u2605';
+          b.appendChild(star);
+        }
+        b.addEventListener('click', function () {
+          select(a);
+          if (a.id) history.replaceState(null, '', '#' + a.id);
+        });
+        linkById[a.id] = b;
+        aside.appendChild(b);
+      });
+    });
+    var main = document.querySelector('main');
+    main.insertBefore(aside, main.firstChild);
+
+    var current = null;
+    function select(a) {
+      current = a;
+      if (!mq.matches) return;
+      cards.forEach(function (c) { c.classList.toggle('active', c === a); });
+      Object.keys(linkById).forEach(function (id) {
+        linkById[id].classList.toggle('active', id === a.id);
+      });
+      a.querySelectorAll('details').forEach(function (d) { d.open = true; });
+    }
+    function apply() {
+      if (mq.matches) {
+        document.body.classList.add('desktop');
+        var t = location.hash && document.getElementById(location.hash.slice(1));
+        select(t && t.classList && t.classList.contains('ticket') ? t : (current || cards[0]));
+      } else {
+        document.body.classList.remove('desktop');
+        cards.forEach(function (c) { c.classList.remove('active'); });
+      }
+    }
+    window.addEventListener('hashchange', function () {
+      var t = document.getElementById(location.hash.slice(1));
+      if (t && t.classList && t.classList.contains('ticket')) select(t);
+    });
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    else mq.addListener(apply);
+    apply();
   })();
 </script>
 
