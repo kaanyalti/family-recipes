@@ -269,6 +269,23 @@
     font-size: 0.8rem;
     color: var(--faint);
   }
+  [hidden] { display: none !important; }
+  .version-note { margin-top: 0.5rem; font-size: 0.76rem; color: var(--faint); font-style: italic; }
+  .variants { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .variant-tab {
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--green);
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.22rem 0.7rem;
+    cursor: pointer;
+  }
+  .variant-tab:hover { border-color: var(--green); }
+  .variant-tab:focus-visible { outline: 2px solid var(--green); }
+  .variant-tab.active { background: var(--green); border-color: var(--green); color: #fff; }
   .jump {
     margin-top: 1.1rem;
     display: flex;
@@ -388,6 +405,7 @@
     <div class="ticket-top"><h3>Mild Coconut Chicken Curry</h3><span class="batch">★ Batch</span></div>
     <p class="meta">Freezes up to 3 months. Chili at the table for adults. Serve over rice.</p>
     <p class="links"><a href="https://simplehomeedit.com/recipe/quick-coconut-chicken-curry/">Simple Home Edit</a><a href="https://www.halfbakedharvest.com/simple-coconut-chicken-curry/">Half Baked Harvest</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -420,6 +438,7 @@
     <div class="ticket-top"><h3>Korean Beef Bowls</h3><span class="batch">★ Batch</span></div>
     <p class="meta">20 minutes. Skip pepper flakes for the toddler batch. Beef keeps 4 days.</p>
     <p class="links"><a href="https://damndelicious.net/2013/07/07/korean-beef-bowl/">Damn Delicious</a><a href="https://therecipecritic.com/korean-ground-beef-rice-bowls/">The Recipe Critic</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -452,6 +471,7 @@
     <div class="ticket-top"><h3>Tuna Mayo Kimbap</h3></div>
     <p class="meta">Eat same day. Fillings prep ahead and keep 2–3 days; rolling takes 10 minutes.</p>
     <p class="links"><a href="https://mykoreankitchen.com/tuna-kimbap/">My Korean Kitchen</a><a href="https://www.beyondkimchee.com/cucumber-tuna-kimbap/">Beyond Kimchee</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -485,6 +505,7 @@
     <div class="ticket-top"><h3>Honey Garlic Shrimp</h3></div>
     <p class="meta">10–20 minutes. Cook fresh — shrimp goes rubbery reheated. Pairs with rice + broccoli.</p>
     <p class="links"><a href="https://www.acouplecooks.com/honey-garlic-shrimp/">A Couple Cooks</a><a href="https://sallysbakingaddiction.com/quick-healthy-dinner-20-minute-honey-garlic-shrimp/">Sally's Baking Addiction</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -521,6 +542,8 @@
     <div class="ticket-top"><h3>Picadillo</h3><span class="batch">★ Batch</span></div>
     <p class="meta">Minced meat + tomato + potatoes in one pan. Keeps 4 days, freezes. Double it.</p>
     <p class="links"><a href="https://themodernproper.com/picadillo">Modern Proper (Mexican)</a><a href="https://www.skinnytaste.com/picadillo-6-ww-pts/">Skinnytaste (Cuban)</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="variants" role="group" aria-label="Recipe versions"><button type="button" class="variant-tab" data-variant="mexican">Mexican</button><button type="button" class="variant-tab" data-variant="cuban">Cuban</button></div>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -533,16 +556,22 @@
       <label class="item" data-base="120" data-unit="ml"><input type="checkbox"><span>Beef broth — ½ cup <span class="si">(120 ml)</span></span></label>
       <label class="item" data-base="2" data-unit="g"><input type="checkbox"><span>Ground cumin — 1 tsp <span class="si">(2 g)</span></span></label>
       <label class="item" data-base="0.6" data-unit="g"><input type="checkbox"><span>Cinnamon — ¼ tsp <span class="si">(0.6 g)</span></span></label>
-      <label class="item" data-base="45" data-unit="g"><input type="checkbox"><span>Green olives — ⅓ cup <span class="si">(45 g)</span> — Cuban version only</span></label>
+      <label class="item" data-base="45" data-unit="g" data-variant-only="cuban"><input type="checkbox"><span>Green olives — ⅓ cup <span class="si">(45 g)</span></span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
-    <ol class="steps">
+    <ol class="steps" data-variant-only="mexican">
       <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
       <li>Stir in the cumin and cinnamon, then the tomato sauce, broth, and diced potatoes.</li>
       <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
-      <li>For the Cuban version, stir in the green olives at the end. Serve with rice.</li>
+      <li>Serve with rice.</li>
+    </ol>
+    <ol class="steps" data-variant-only="cuban">
+      <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
+      <li>Stir in the cumin, then the tomato sauce, broth, and diced potatoes.</li>
+      <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
+      <li>Stir in the green olives (a splash of their brine is good) and warm through. Serve with rice.</li>
     </ol>
   </details>
 </article>
@@ -552,6 +581,8 @@
     <div class="ticket-top"><h3>Chicken Tinga</h3><span class="batch">★ Batch</span></div>
     <p class="meta">Smoky shredded chicken for tacos, tostadas, or rice. Freezes well. Use ½ chipotle for toddler-mild.</p>
     <p class="links"><a href="https://www.gimmesomeoven.com/chicken-tinga/">Gimme Some Oven</a><a href="https://themodernproper.com/chicken-tinga">Modern Proper (rotisserie)</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="variants" role="group" aria-label="Recipe versions"><button type="button" class="variant-tab" data-variant="raw">From raw chicken</button><button type="button" class="variant-tab" data-variant="rotisserie">Rotisserie shortcut</button></div>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -569,8 +600,14 @@
   </details>
   <details>
     <summary>How to make</summary>
-    <ol class="steps">
-      <li>If not using rotisserie, poach the chicken until cooked through, then shred it.</li>
+    <ol class="steps" data-variant-only="raw">
+      <li>Poach the chicken in simmering salted water until cooked through, about 15 minutes, then shred it.</li>
+      <li>Blend the fire-roasted tomatoes, ½–1 chipotle, onion, garlic, oregano, and cumin into a smooth sauce.</li>
+      <li>Sauté sliced onion, add the sauce, and reduce 5 minutes.</li>
+      <li>Add the shredded chicken and broth; simmer 10 minutes until saucy. Pile onto tortillas or tostadas.</li>
+    </ol>
+    <ol class="steps" data-variant-only="rotisserie">
+      <li>Pull the meat off a rotisserie chicken and shred it — no cooking needed yet.</li>
       <li>Blend the fire-roasted tomatoes, ½–1 chipotle, onion, garlic, oregano, and cumin into a smooth sauce.</li>
       <li>Sauté sliced onion, add the sauce, and reduce 5 minutes.</li>
       <li>Add the shredded chicken and broth; simmer 10 minutes until saucy. Pile onto tortillas or tostadas.</li>
@@ -583,6 +620,7 @@
     <div class="ticket-top"><h3>Carne Asada</h3></div>
     <p class="meta">Marinate 1–8 hours max. Works on a grill pan indoors. Slice against the grain.</p>
     <p class="links"><a href="https://www.mexicoinmykitchen.com/carne-asada-recipe/">Mexico in My Kitchen</a><a href="https://somuchfoodblog.com/carne-asada-recipe/">So Much Food</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -613,6 +651,8 @@
     <div class="ticket-top"><h3>Fish Tacos (Tilapia or Cod)</h3></div>
     <p class="meta">20 minutes, pan-seared or baked. Mild fish, toddler-friendly without the sauce.</p>
     <p class="links"><a href="https://www.isabeleats.com/tilapia-fish-tacos/">Isabel Eats (pan)</a><a href="https://www.acouplecooks.com/tilapia-fish-tacos/">A Couple Cooks (baked)</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="variants" role="group" aria-label="Recipe versions"><button type="button" class="variant-tab" data-variant="pan">Pan-seared</button><button type="button" class="variant-tab" data-variant="baked">Baked</button></div>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -629,9 +669,15 @@
   </details>
   <details>
     <summary>How to make</summary>
-    <ol class="steps">
+    <ol class="steps" data-variant-only="pan">
       <li>Pat the fish dry and season with cumin, garlic powder, and chili powder (omit the chili for the toddler portion).</li>
-      <li>Pan-sear 3–4 minutes per side, or bake at 200 °C / 400 °F for about 12 minutes, until it flakes.</li>
+      <li>Pan-sear in a little oil over medium-high, 3–4 minutes per side, until the fish flakes easily.</li>
+      <li>Stir lime juice into the sour cream or mayo, then toss with the shredded cabbage for a quick slaw.</li>
+      <li>Fill warm tortillas with fish and slaw; finish with a squeeze of lime.</li>
+    </ol>
+    <ol class="steps" data-variant-only="baked">
+      <li>Pat the fish dry and season with cumin, garlic powder, and chili powder (omit the chili for the toddler portion).</li>
+      <li>Bake on a lined tray at 200 °C / 400 °F for about 12 minutes, until the fish flakes easily.</li>
       <li>Stir lime juice into the sour cream or mayo, then toss with the shredded cabbage for a quick slaw.</li>
       <li>Fill warm tortillas with fish and slaw; finish with a squeeze of lime.</li>
     </ol>
@@ -643,6 +689,7 @@
     <div class="ticket-top"><h3>Moqueca (Brazilian Fish Stew)</h3><span class="batch">★ Batch</span></div>
     <p class="meta">Cod, tilapia, salmon, or shrimp in coconut-tomato broth. Batch the sauce; cook fish fresh in it.</p>
     <p class="links"><a href="https://www.recipetineats.com/brazilian-fish-stew-moqueca-baiana/">RecipeTin Eats</a><a href="https://www.feastingathome.com/brazilian-fish-stew-aka-moqueca/">Feasting at Home</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
@@ -935,10 +982,11 @@
       hint.textContent = 'Have less of something? Type what you have and the recipe rescales to the limiting ingredient.';
       list.insertBefore(status, list.firstChild);
       list.insertBefore(hint, status);
+      card._scaleUpdate = function () { update(); };
 
       function update() {
         var provided = rows.filter(function (r) {
-          return r.input.value !== '' && parseFloat(r.input.value) >= 0;
+          return !r.label.hidden && r.input.value !== '' && parseFloat(r.input.value) >= 0;
         });
         var minR = Infinity, limiters = [];
         provided.forEach(function (r) {
@@ -1038,6 +1086,31 @@
     if (mq.addEventListener) mq.addEventListener('change', apply);
     else mq.addListener(apply);
     apply();
+  })();
+
+  // Recipe variants: cards with variant tabs switch between versions of a
+  // dish. Rows and step lists tagged data-variant-only appear only for
+  // their variant, and the scaler recalculates on switch.
+  (function () {
+    document.querySelectorAll('article.ticket').forEach(function (card) {
+      var tabs = Array.prototype.slice.call(card.querySelectorAll('.variant-tab'));
+      if (!tabs.length) return;
+      function setVariant(v) {
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-variant') === v;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        card.querySelectorAll('[data-variant-only]').forEach(function (el) {
+          el.hidden = el.getAttribute('data-variant-only') !== v;
+        });
+        if (card._scaleUpdate) card._scaleUpdate();
+      }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { setVariant(t.getAttribute('data-variant')); });
+      });
+      setVariant(tabs[0].getAttribute('data-variant'));
+    });
   })();
 </script>
 
