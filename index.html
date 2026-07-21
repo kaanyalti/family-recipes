@@ -190,96 +190,51 @@
   .item input[type="checkbox"]:checked ~ span { color: var(--faint); text-decoration: line-through; }
   .ing-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .ing-amt { white-space: nowrap; }
-  .adj { font-weight: 700; color: var(--green); white-space: nowrap; }
-  .limit-flag {
-    display: none;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #fff;
-    background: var(--marigold);
-    border-radius: 4px;
-    padding: 0.1rem 0.35rem;
-    margin-left: 0.4rem;
-    vertical-align: 0.1rem;
-    white-space: nowrap;
-  }
-  .item.limiting .limit-flag { display: inline-block; }
+  .ing-amt.editable { cursor: pointer; border-bottom: 1px dashed var(--rule); }
+  .ing-amt.editable:hover { border-bottom-color: var(--green); }
+  .ing-amt.scaled { color: var(--green); font-weight: 700; }
   .item.limiting { background: #FBF3E4; border-radius: 6px; }
-  .scale-line {
-    display: none;
-    grid-column: 2 / -1;
-    grid-row: 2;
-    margin-top: 0.2rem;
-  }
-  .ticket.scaling .scale-line {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-  .have { display: inline-flex; align-items: center; gap: 0.3rem; }
-  .have input {
-    width: 4.2rem;
-    flex-shrink: 0;
-    padding: 0.18rem 0.35rem;
-    border: 1px solid var(--rule);
-    border-radius: 5px;
-    font: inherit;
-    font-size: 0.85rem;
-    text-align: right;
-    color: var(--ink);
-    background: var(--card);
-  }
-  .have input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
-  .have-unit { font-size: 0.72rem; color: var(--faint); }
-  .scale-pill {
-    font: inherit;
+  .item.limiting .ing-amt { color: var(--marigold); }
+  .base-note { font-size: 0.72rem; color: var(--faint); margin-left: 0.45rem; }
+  .have-note, .limit-note {
     font-size: 0.62rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--green);
+    color: var(--marigold);
+    margin-left: 0.4rem;
+  }
+  .amt-input {
+    width: 4.6rem;
+    font: inherit;
+    font-size: 0.9rem;
+    text-align: right;
+    color: var(--ink);
     background: var(--card);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--green);
+    border-radius: 5px;
+    padding: 0.08rem 0.3rem;
+  }
+  .amt-input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .amt-unit { font-size: 0.72rem; color: var(--faint); margin-left: 0.25rem; }
+  .scale-chip {
+    font: inherit;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--green);
+    border: 1px solid var(--green);
     border-radius: 999px;
-    padding: 0.14rem 0.55rem;
+    padding: 0.16rem 0.6rem;
     cursor: pointer;
     margin-left: auto;
     pointer-events: auto;
   }
-  .scale-pill:hover { border-color: var(--green); }
-  .scale-pill:focus-visible { outline: 2px solid var(--green); }
-  .scale-pill[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+  .scale-chip:hover { background: var(--ink); border-color: var(--ink); }
+  .scale-chip:focus-visible { outline: 2px solid var(--marigold); }
   summary::after { margin-left: 0.5rem; }
-  .scale-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.8rem;
-    color: var(--faint);
-    background: #E8EFE8;
-    border-radius: 6px;
-    padding: 0.4rem 0.6rem;
-    margin: 0.55rem 0 0.35rem;
-  }
-  .scale-status strong { color: var(--green); }
-  .scale-reset {
-    font: inherit;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: none;
-    border: 1px solid var(--green);
-    border-radius: 5px;
-    padding: 0.15rem 0.5rem;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-  .scale-reset:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
   [hidden] { display: none !important; }
   .version-note { margin-top: 0.5rem; font-size: 0.76rem; color: var(--faint); font-style: italic; }
   .variants { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -344,7 +299,7 @@
   }
   .side-link:hover { background: #E8EFE8; }
   .side-link:focus-visible { outline: 2px solid var(--green); }
-  .side-link.active { background: var(--green); color: #fff; font-weight: 700; }
+  .side-link.active { background: var(--green); color: #fff; }
   .side-link .star { color: var(--marigold); font-size: 0.75em; margin-left: 0.3rem; }
   .side-link.active .star { color: #FBE3B8; }
   @media (min-width: 900px) {
@@ -924,9 +879,11 @@
     }
   })();
 
-  // Scale-to-what-you-have: each ingredient with a data-base quantity gets a
-  // "have" input. The recipe scales live to the most limiting provided
-  // ingredient; base amounts stay visible and the limiter is flagged.
+  // In-place recipe scaling: tap an amount and type what you have — the
+  // whole recipe rescales to the most limiting provided ingredient. While
+  // scaled, the original amount shows beside each name, the limiter is
+  // tagged, and a chip on the Ingredients header shows the scale
+  // percentage (tap it to reset).
   (function () {
     function fmt(n) {
       if (!isFinite(n)) return '';
@@ -940,120 +897,143 @@
 
       card.querySelectorAll('.item[data-base]').forEach(function (label) {
         var base = parseFloat(label.getAttribute('data-base'));
-        if (!base) return;
-        var unit = label.getAttribute('data-unit') || '';
-        var line = document.createElement('span');
-        line.className = 'scale-line';
+        var amtCell = label.querySelector('.ing-amt');
+        var nameEl = label.querySelector('.ing-name');
+        if (!base || !amtCell || !nameEl) return;
+        var row = {
+          label: label,
+          base: base,
+          unit: label.getAttribute('data-unit') || '',
+          amtCell: amtCell,
+          nameEl: nameEl,
+          original: amtCell.textContent,
+          value: null,
+          editing: false
+        };
+        amtCell.classList.add('editable');
+        amtCell.title = 'Tap to enter how much you have';
+        amtCell.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          startEdit(row);
+        });
+        rows.push(row);
+      });
+      if (!rows.length) return;
 
-        var adj = document.createElement('span');
-        adj.className = 'adj';
-        var flag = document.createElement('span');
-        flag.className = 'limit-flag';
-        flag.textContent = 'limiting';
+      var chip = null;
+      var det = card.querySelector('details');
+      var summ = det ? det.querySelector('summary') : null;
+      if (summ) {
+        chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'scale-chip';
+        chip.title = 'Reset to the original recipe';
+        chip.hidden = true;
+        chip.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          rows.forEach(function (r) { r.value = null; });
+          render();
+        });
+        summ.appendChild(chip);
+      }
 
-        var wrap = document.createElement('span');
-        wrap.className = 'have';
+      function factorInfo() {
+        var provided = rows.filter(function (r) { return r.value !== null && !r.label.hidden; });
+        var minR = Infinity, limiters = [];
+        provided.forEach(function (r) {
+          var ratio = r.value / r.base;
+          if (ratio < minR - 1e-9) { minR = ratio; limiters = [r]; }
+          else if (Math.abs(ratio - minR) <= 1e-9) { limiters.push(r); }
+        });
+        return { provided: provided, factor: provided.length ? minR : 1, limiters: limiters };
+      }
+
+      function render() {
+        var info = factorInfo();
+        var scaled = info.provided.length > 0;
+        rows.forEach(function (r) {
+          if (r.editing) return;
+          r.label.classList.remove('limiting');
+          r.nameEl.querySelectorAll('.base-note, .limit-note, .have-note').forEach(function (n) { n.remove(); });
+          if (!scaled) {
+            r.amtCell.textContent = r.original;
+            r.amtCell.classList.remove('scaled');
+            return;
+          }
+          r.amtCell.textContent = fmt(r.base * info.factor) + (r.unit ? ' ' + r.unit : '');
+          r.amtCell.classList.add('scaled');
+          var note = document.createElement('span');
+          note.className = 'base-note';
+          note.textContent = r.original;
+          r.nameEl.appendChild(note);
+          if (info.limiters.indexOf(r) !== -1) {
+            r.label.classList.add('limiting');
+            var lim = document.createElement('span');
+            lim.className = 'limit-note';
+            lim.textContent = 'limiting';
+            r.nameEl.appendChild(lim);
+          } else if (r.value !== null && Math.abs(r.value - r.base * info.factor) > 1e-9) {
+            var hv = document.createElement('span');
+            hv.className = 'have-note';
+            hv.textContent = 'have ' + fmt(r.value);
+            r.nameEl.appendChild(hv);
+          }
+        });
+        if (chip) {
+          chip.hidden = !scaled;
+          if (scaled) chip.textContent = Math.round(info.factor * 100) + '% · reset';
+        }
+      }
+
+      function startEdit(row) {
+        if (row.editing) return;
+        row.editing = true;
+        var info = factorInfo();
+        var shown = row.value !== null ? row.value : row.base * info.factor;
+        row.amtCell.classList.remove('scaled');
+        row.amtCell.textContent = '';
         var input = document.createElement('input');
         input.type = 'number';
         input.min = '0';
         input.step = 'any';
         input.inputMode = 'decimal';
-        input.placeholder = 'have';
+        input.className = 'amt-input';
+        input.value = fmt(shown);
         input.setAttribute('aria-label',
-          'Amount you have' + (unit ? ' in ' + unit : '') + ' (recipe needs ' + fmt(base) + (unit ? ' ' + unit : '') + ')');
-        var u = document.createElement('span');
-        u.className = 'have-unit';
-        u.textContent = unit;
-        wrap.appendChild(input);
-        wrap.appendChild(u);
-        line.appendChild(wrap);
-        line.appendChild(adj);
-        line.appendChild(flag);
-        label.appendChild(line);
-
-        // keep clicks on the scale controls from toggling the row's checkbox
-        line.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
-        input.addEventListener('input', update);
-
-        rows.push({ label: label, base: base, unit: unit, input: input, adj: adj });
-      });
-      if (!rows.length) return;
-
-      var list = card.querySelector('.list');
-      var status = document.createElement('p');
-      status.className = 'scale-status';
-      status.style.display = 'none';
-      status.setAttribute('aria-live', 'polite');
-      var statusText = document.createElement('span');
-      var reset = document.createElement('button');
-      reset.type = 'button';
-      reset.className = 'scale-reset';
-      reset.textContent = 'Reset';
-      reset.addEventListener('click', function () {
-        rows.forEach(function (r) { r.input.value = ''; });
-        update();
-      });
-      status.appendChild(statusText);
-      status.appendChild(reset);
-      list.insertBefore(status, list.firstChild);
-      card._scaleUpdate = function () { update(); };
-
-      // "Scale" pill on the Ingredients header toggles the mode
-      var det = list.closest('details');
-      var summ = det ? det.querySelector('summary') : null;
-      if (summ) {
-        var pill = document.createElement('button');
-        pill.type = 'button';
-        pill.className = 'scale-pill';
-        pill.textContent = 'Scale';
-        pill.setAttribute('aria-pressed', 'false');
-        pill.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var on = !card.classList.contains('scaling');
-          card.classList.toggle('scaling', on);
-          pill.setAttribute('aria-pressed', on ? 'true' : 'false');
-          pill.textContent = on ? 'Done' : 'Scale';
-          if (on) { det.open = true; }
-          else {
-            rows.forEach(function (r) { r.input.value = ''; });
-            update();
-          }
-        });
-        summ.appendChild(pill);
-      }
-
-      function update() {
-        var provided = rows.filter(function (r) {
-          return !r.label.hidden && r.input.value !== '' && parseFloat(r.input.value) >= 0;
-        });
-        var minR = Infinity, limiters = [];
-        provided.forEach(function (r) {
-          var ratio = parseFloat(r.input.value) / r.base;
-          if (ratio < minR - 1e-9) { minR = ratio; limiters = [r]; }
-          else if (Math.abs(ratio - minR) <= 1e-9) { limiters.push(r); }
-        });
-
-        rows.forEach(function (r) {
-          r.label.classList.remove('limiting');
-          r.adj.textContent = provided.length
-            ? ' → ' + fmt(r.base * minR) + (r.unit ? ' ' + r.unit : '')
-            : '';
-        });
-
-        if (provided.length) {
-          limiters.forEach(function (r) { r.label.classList.add('limiting'); });
-          var names = limiters.map(function (r) {
-            return r.label.querySelector('.ing-name').textContent.trim();
-          });
-          statusText.innerHTML = 'Scaled to <strong>' + Math.round(minR * 100) + '%</strong> — limited by <strong></strong>.';
-          statusText.querySelectorAll('strong')[1].textContent = names.join(', ');
-          status.style.display = '';
-        } else {
-          statusText.textContent = '';
-          status.style.display = 'none';
+          'How much ' + row.nameEl.childNodes[0].textContent.trim() + ' you have' + (row.unit ? ', in ' + row.unit : ''));
+        row.amtCell.appendChild(input);
+        if (row.unit) {
+          var suffix = document.createElement('span');
+          suffix.className = 'amt-unit';
+          suffix.textContent = row.unit;
+          row.amtCell.appendChild(suffix);
         }
+        var initial = input.value;
+        var done = false;
+        function finish(commit) {
+          if (done) return;
+          done = true;
+          row.editing = false;
+          if (commit) {
+            var v = parseFloat(input.value);
+            if (input.value === '' || isNaN(v) || v < 0) { row.value = null; }
+            else if (input.value !== initial || row.value !== null) { row.value = v; }
+          }
+          render();
+        }
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { finish(true); }
+          else if (e.key === 'Escape') { finish(false); }
+        });
+        input.addEventListener('blur', function () { finish(true); });
+        input.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
+        input.focus();
+        input.select();
       }
+
+      card._scaleUpdate = render;
     });
   })();
 
@@ -1120,7 +1100,7 @@
     }
     window.addEventListener('hashchange', function () {
       var t = document.getElementById(location.hash.slice(1));
-      if (t && t.classList && t.classList.contains('ticket')) select(t);
+      if (t && t.classList.contains('ticket')) select(t);
     });
     if (mq.addEventListener) mq.addEventListener('change', apply);
     else mq.addListener(apply);
