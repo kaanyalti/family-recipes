@@ -192,7 +192,7 @@
   .ing-amt { white-space: nowrap; }
   .ing-amt.editable { cursor: pointer; border-bottom: 1px dashed var(--rule); }
   .ing-amt.editable:hover { border-bottom-color: var(--green); }
-  .ing-amt.scaled { color: var(--green); font-weight: 700; }
+  .ing-amt.scaled { color: var(--green); }
   .item.limiting { background: #FBF3E4; border-radius: 6px; }
   .item.limiting .ing-amt { color: var(--marigold); }
   .base-note { font-size: 0.72rem; color: var(--faint); margin-left: 0.45rem; }
@@ -205,17 +205,23 @@
     margin-left: 0.4rem;
   }
   .amt-input {
-    width: 4.6rem;
+    width: 4.5rem;
+    height: 1.55em;
+    vertical-align: top;
     font: inherit;
-    font-size: 0.9rem;
     text-align: right;
-    color: var(--ink);
-    background: var(--card);
-    border: 1px solid var(--green);
-    border-radius: 5px;
-    padding: 0.08rem 0.3rem;
+    color: var(--green);
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--green);
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    appearance: textfield;
   }
-  .amt-input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
+  .amt-input::-webkit-outer-spin-button,
+  .amt-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .amt-input:focus { outline: none; border-bottom-style: solid; }
   .amt-unit { font-size: 0.72rem; color: var(--faint); margin-left: 0.25rem; }
   .scale-chip {
     font: inherit;
@@ -995,10 +1001,9 @@
         row.amtCell.classList.remove('scaled');
         row.amtCell.textContent = '';
         var input = document.createElement('input');
-        input.type = 'number';
-        input.min = '0';
-        input.step = 'any';
+        input.type = 'text';
         input.inputMode = 'decimal';
+        input.autocomplete = 'off';
         input.className = 'amt-input';
         input.value = fmt(shown);
         input.setAttribute('aria-label',
