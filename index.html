@@ -22,13 +22,13 @@
     background: var(--paper);
     color: var(--ink);
     font-family: 'Karla', sans-serif;
-    font-size: 16px;
+    font-size: 100%;
     line-height: 1.55;
     padding-bottom: 4rem;
   }
   header {
     padding: 2.5rem 1.25rem 1.75rem;
-    max-width: 640px;
+    max-width: 40rem;
     margin: 0 auto;
   }
   .eyebrow {
@@ -50,7 +50,7 @@
     color: var(--faint);
     max-width: 46ch;
   }
-  main { max-width: 640px; margin: 0 auto; padding: 0 1.25rem; }
+  main { max-width: 40rem; margin: 0 auto; padding: 0 1.25rem; }
   h2 {
     font-family: 'Young Serif', serif;
     font-weight: 400;
@@ -205,7 +205,7 @@
     margin-left: 0.4rem;
   }
   .amt-input {
-    width: 4.5rem;
+    min-width: 2ch;
     height: 1.55em;
     vertical-align: top;
     font: inherit;
@@ -233,7 +233,10 @@
     background: var(--green);
     border: 1px solid var(--green);
     border-radius: 999px;
-    padding: 0.16rem 0.6rem;
+    padding: 0 0.6rem;
+    height: 1.8em;
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
     margin-left: auto;
     pointer-events: auto;
@@ -308,8 +311,8 @@
   .side-link.active { background: var(--green); color: #fff; }
   .side-link .star { color: var(--marigold); font-size: 0.75em; margin-left: 0.3rem; }
   .side-link.active .star { color: #FBE3B8; }
-  @media (min-width: 900px) {
-    header, main { max-width: 1150px; }
+  @media (min-width: 56.25em) {
+    header, main { max-width: 72rem; }
     header { padding: 3rem 2rem 1.6rem; }
     main { padding-left: 2rem; padding-right: 2rem; }
     h1 { font-size: 2.9rem; }
@@ -327,7 +330,7 @@
     body.desktop .jump { display: none; }
     body.desktop main {
       display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
+      grid-template-columns: 15rem minmax(0, 1fr);
       gap: 1.8rem;
       align-items: start;
     }
@@ -1015,6 +1018,11 @@
           suffix.textContent = row.unit;
           row.amtCell.appendChild(suffix);
         }
+        function fit() {
+          input.style.width = (Math.max(input.value.length, 2) + 0.7) + 'ch';
+        }
+        input.addEventListener('input', fit);
+        fit();
         var initial = input.value;
         var done = false;
         function finish(commit) {
@@ -1046,7 +1054,7 @@
   // recipe shown in full (all sections open) on the right. Mobile keeps
   // the card list; the layout switches live at the 900px breakpoint.
   (function () {
-    var mq = window.matchMedia('(min-width: 900px)');
+    var mq = window.matchMedia('(min-width: 56.25em)');
     var cards = Array.prototype.slice.call(document.querySelectorAll('article.ticket'));
     if (!cards.length) return;
 
