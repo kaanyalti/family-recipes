@@ -269,9 +269,42 @@
     font-size: 0.8rem;
     color: var(--faint);
   }
+  .jump {
+    margin-top: 1.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .jump a {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--green);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    background: var(--card);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+  }
+  .jump a:hover, .jump a:focus-visible { border-color: var(--green); }
+  h2 { scroll-margin-top: 1rem; }
   @media (prefers-reduced-motion: no-preference) {
     .ticket { transition: border-color 0.15s ease; }
     .ticket:hover { border-color: var(--green); }
+  }
+  @media (min-width: 900px) {
+    header, main, footer { max-width: 1060px; }
+    header { padding: 3.5rem 2rem 2rem; }
+    main, footer { padding-left: 2rem; padding-right: 2rem; }
+    h1 { font-size: 3.1rem; }
+    .intro { font-size: 1.05rem; max-width: 52ch; }
+    h2 { font-size: 1.45rem; margin: 2.75rem 0 1.2rem; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .cards .ticket { margin-bottom: 0; }
   }
 </style>
 </head>
@@ -281,11 +314,14 @@
   <p class="eyebrow">Easy · Batch-friendly · Toddler-approved</p>
   <h1>Family Kitchen Index</h1>
   <p class="intro">The new rotation: eleven recipes, each with its trusted source links and a tap-to-check ingredient list.</p>
+  <nav class="jump" aria-label="Recipe sections"><a href="#asian">Asian</a><a href="#mexican-south-american">Mexican &amp; South American</a><a href="#dessert">Dessert</a></nav>
 </header>
 
 <main>
 
-<h2>Asian</h2>
+<h2 id="asian">Asian</h2>
+
+<div class="cards">
 
 <article class="ticket">
   <div class="ticket-head">
@@ -414,7 +450,11 @@
   </details>
 </article>
 
-<h2>Mexican &amp; South American</h2>
+</div>
+
+<h2 id="mexican-south-american">Mexican &amp; South American</h2>
+
+<div class="cards">
 
 <article class="ticket">
   <div class="ticket-head">
@@ -570,7 +610,11 @@
   </details>
 </article>
 
-<h2>Dessert</h2>
+</div>
+
+<h2 id="dessert">Dessert</h2>
+
+<div class="cards">
 
 <article class="ticket">
   <div class="ticket-head">
@@ -654,6 +698,8 @@
   </details>
 </article>
 
+
+</div>
 
 </main>
 
