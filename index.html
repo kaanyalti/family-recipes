@@ -160,7 +160,7 @@
   .macros strong { color: var(--green); }
   .item {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: start;
     column-gap: 0.6rem;
     padding: 0.32rem 0;
@@ -207,15 +207,20 @@
   }
   .item.limiting .limit-flag { display: inline-block; }
   .item.limiting { background: #FBF3E4; border-radius: 6px; }
-  .have {
+  .scale-line {
+    display: none;
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin-top: 0.2rem;
+  }
+  .ticket.scaling .scale-line {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    width: 6.9rem;
-    margin-top: 0.05rem;
+    gap: 0.55rem;
   }
+  .have { display: inline-flex; align-items: center; gap: 0.3rem; }
   .have input {
-    width: 3.9rem;
+    width: 4.2rem;
     flex-shrink: 0;
     padding: 0.18rem 0.35rem;
     border: 1px solid var(--rule);
@@ -227,15 +232,26 @@
     background: var(--card);
   }
   .have input:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
-  .have-unit {
-    font-size: 0.7rem;
-    color: var(--faint);
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .have-unit { font-size: 0.72rem; color: var(--faint); }
+  .scale-pill {
+    font: inherit;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.14rem 0.55rem;
+    cursor: pointer;
+    margin-left: auto;
+    pointer-events: auto;
   }
+  .scale-pill:hover { border-color: var(--green); }
+  .scale-pill:focus-visible { outline: 2px solid var(--green); }
+  .scale-pill[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; }
+  summary::after { margin-left: 0.5rem; }
   .scale-status {
     display: flex;
     justify-content: space-between;
@@ -473,7 +489,7 @@
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="400" data-unit="g" title="Short-grain (sushi) rice — 2 cups dry (400 g)"><input type="checkbox"><span class="ing-name">Short-grain (sushi) rice</span><span class="ing-amt">400 g</span></label>
+      <label class="item" data-base="400" data-unit="g" title="Short-grain (sushi) rice — 2 cups dry (400 g)"><input type="checkbox"><span class="ing-name">Sushi rice</span><span class="ing-amt">400 g</span></label>
       <label class="item" data-base="2" data-unit="cans" title="Canned tuna — 2 cans (2 × 140 g drained)"><input type="checkbox"><span class="ing-name">Canned tuna</span><span class="ing-amt">2 cans</span></label>
       <label class="item" data-base="45" data-unit="g" title="Mayonnaise — 3 tbsp (45 g)"><input type="checkbox"><span class="ing-name">Mayonnaise</span><span class="ing-amt">45 g</span></label>
       <label class="item" data-base="4" data-unit="sheets" title="Nori / gim seaweed — 4 sheets"><input type="checkbox"><span class="ing-name">Nori / gim seaweed</span><span class="ing-amt">4 sheets</span></label>
@@ -584,9 +600,9 @@
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="700" data-unit="g" title="Chicken (or 1 rotisserie) — 1.5 lb (700 g)"><input type="checkbox"><span class="ing-name">Chicken (or 1 rotisserie)</span><span class="ing-amt">700 g</span></label>
+      <label class="item" data-base="700" data-unit="g" title="Chicken (or 1 rotisserie) — 1.5 lb (700 g)"><input type="checkbox"><span class="ing-name">Chicken (or rotisserie)</span><span class="ing-amt">700 g</span></label>
       <label class="item" title="Chipotles in adobo — 1 can (use ½–1 pepper)"><input type="checkbox"><span class="ing-name">Chipotles in adobo</span><span class="ing-amt">1 can</span></label>
-      <label class="item" data-base="400" data-unit="g" title="Fire-roasted diced tomatoes — 1 can (14 oz) (400 g)"><input type="checkbox"><span class="ing-name">Fire-roasted diced tomatoes</span><span class="ing-amt">400 g</span></label>
+      <label class="item" data-base="400" data-unit="g" title="Fire-roasted diced tomatoes — 1 can (14 oz) (400 g)"><input type="checkbox"><span class="ing-name">Fire-roasted tomatoes</span><span class="ing-amt">400 g</span></label>
       <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
       <label class="item" data-base="4" data-unit="cloves" title="Garlic — 4 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">4 cloves</span></label>
       <label class="item" data-base="1" data-unit="g" title="Dried oregano — 1 tsp (1 g)"><input type="checkbox"><span class="ing-name">Dried oregano</span><span class="ing-amt">1 g</span></label>
@@ -691,7 +707,7 @@
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="500" data-unit="g" title="Firm white fish (cod/tilapia) — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Firm white fish (cod/tilapia)</span><span class="ing-amt">500 g</span></label>
+      <label class="item" data-base="500" data-unit="g" title="Firm white fish (cod/tilapia) — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Firm white fish</span><span class="ing-amt">500 g</span></label>
       <label class="item" data-base="400" data-unit="ml" title="Coconut milk — 1 can (400 ml)"><input type="checkbox"><span class="ing-name">Coconut milk</span><span class="ing-amt">400 ml</span></label>
       <label class="item" data-base="400" data-unit="g" title="Tomatoes — 2 fresh or 1 can (400 g)"><input type="checkbox"><span class="ing-name">Tomatoes</span><span class="ing-amt">400 g</span></label>
       <label class="item" data-base="300" data-unit="g" title="Bell peppers — 2 (~300 g)"><input type="checkbox"><span class="ing-name">Bell peppers</span><span class="ing-amt">~300 g</span></label>
@@ -731,32 +747,32 @@
     <summary>Ingredients</summary>
     <div class="list">
       <p class="grp">Cookie batter — wet</p>
-      <label class="item" data-base="40" data-unit="g" title="Nonfat Greek yogurt (plain or vanilla) — 40 g (3 tbsp)"><input type="checkbox"><span class="ing-name">Nonfat Greek yogurt (plain or vanilla)</span><span class="ing-amt">40 g</span></label>
+      <label class="item" data-base="40" data-unit="g" title="Nonfat Greek yogurt (plain or vanilla) — 40 g (3 tbsp)"><input type="checkbox"><span class="ing-name">Nonfat Greek yogurt</span><span class="ing-amt">40 g</span></label>
       <label class="item" data-base="25" data-unit="ml" title="Egg whites — 25 ml (1 tbsp + 2 tsp)"><input type="checkbox"><span class="ing-name">Egg whites</span><span class="ing-amt">25 ml</span></label>
       <label class="item" title="Vanilla extract — ½ tsp (2.1 ml) — optional"><input type="checkbox"><span class="ing-name">Vanilla extract</span><span class="ing-amt">½ tsp</span></label>
       <p class="grp">Cookie batter — dry</p>
       <label class="item" data-base="10" data-unit="g" title="All-purpose flour — 10 g (1 tbsp + 1 tsp)"><input type="checkbox"><span class="ing-name">All-purpose flour</span><span class="ing-amt">10 g</span></label>
       <label class="item" data-base="10" data-unit="g" title="Casein protein powder — 10 g (⅓ scoop)"><input type="checkbox"><span class="ing-name">Casein protein powder</span><span class="ing-amt">10 g</span></label>
       <label class="item" data-base="5" data-unit="g" title="Oat flour — 5 g (2 tsp)"><input type="checkbox"><span class="ing-name">Oat flour</span><span class="ing-amt">5 g</span></label>
-      <label class="item" data-base="24" data-unit="g" title="Granulated sugar substitute — 24 g (2 tbsp)"><input type="checkbox"><span class="ing-name">Granulated sugar substitute</span><span class="ing-amt">24 g</span></label>
+      <label class="item" data-base="24" data-unit="g" title="Granulated sugar substitute — 24 g (2 tbsp)"><input type="checkbox"><span class="ing-name">Sugar substitute</span><span class="ing-amt">24 g</span></label>
       <label class="item" data-base="1" data-unit="g" title="Baking soda — 1 g (¼ tsp)"><input type="checkbox"><span class="ing-name">Baking soda</span><span class="ing-amt">1 g</span></label>
       <label class="item" title="Salt — pinch"><input type="checkbox"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></label>
       <p class="grp">Brownie batter — wet</p>
       <label class="item" data-base="120" data-unit="ml" title="Egg whites — 120 ml (½ cup)"><input type="checkbox"><span class="ing-name">Egg whites</span><span class="ing-amt">120 ml</span></label>
-      <label class="item" data-base="80" data-unit="g" title="Nonfat Greek yogurt (plain or vanilla) — 80 g (⅓ cup)"><input type="checkbox"><span class="ing-name">Nonfat Greek yogurt (plain or vanilla)</span><span class="ing-amt">80 g</span></label>
+      <label class="item" data-base="80" data-unit="g" title="Nonfat Greek yogurt (plain or vanilla) — 80 g (⅓ cup)"><input type="checkbox"><span class="ing-name">Nonfat Greek yogurt</span><span class="ing-amt">80 g</span></label>
       <label class="item" data-base="120" data-unit="g" title="Pumpkin purée — 120 g (½ cup)"><input type="checkbox"><span class="ing-name">Pumpkin purée</span><span class="ing-amt">120 g</span></label>
       <label class="item" data-base="120" data-unit="ml" title="Almond milk — 120 ml (½ cup)"><input type="checkbox"><span class="ing-name">Almond milk</span><span class="ing-amt">120 ml</span></label>
       <p class="grp">Brownie batter — dry</p>
       <label class="item" data-base="35" data-unit="g" title="All-purpose flour — 35 g (¼ cup)"><input type="checkbox"><span class="ing-name">All-purpose flour</span><span class="ing-amt">35 g</span></label>
-      <label class="item" data-base="84" data-unit="g" title="Granulated sugar substitute — 72–96 g (6–8 tbsp)"><input type="checkbox"><span class="ing-name">Granulated sugar substitute</span><span class="ing-amt">72–96 g</span></label>
-      <label class="item" data-base="20" data-unit="g" title="Whey/casein blend protein powder — 20 g (⅔ scoop)"><input type="checkbox"><span class="ing-name">Whey/casein blend protein powder</span><span class="ing-amt">20 g</span></label>
+      <label class="item" data-base="84" data-unit="g" title="Granulated sugar substitute — 72–96 g (6–8 tbsp)"><input type="checkbox"><span class="ing-name">Sugar substitute</span><span class="ing-amt">72–96 g</span></label>
+      <label class="item" data-base="20" data-unit="g" title="Whey/casein blend protein powder — 20 g (⅔ scoop)"><input type="checkbox"><span class="ing-name">Whey/casein protein powder</span><span class="ing-amt">20 g</span></label>
       <label class="item" data-base="25" data-unit="g" title="Black or dark cocoa powder — 25 g (¼ cup)"><input type="checkbox"><span class="ing-name">Black or dark cocoa powder</span><span class="ing-amt">25 g</span></label>
       <label class="item" data-base="2" data-unit="g" title="Baking soda — 2 g (⅓ tsp)"><input type="checkbox"><span class="ing-name">Baking soda</span><span class="ing-amt">2 g</span></label>
       <label class="item" data-base="2" data-unit="g" title="Baking powder — 2 g (½ tsp)"><input type="checkbox"><span class="ing-name">Baking powder</span><span class="ing-amt">2 g</span></label>
       <label class="item" title="Salt — pinch"><input type="checkbox"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></label>
       <p class="grp">Topping</p>
       <label class="item" data-base="10" data-unit="g" title="Chocolate chips — 10 g"><input type="checkbox"><span class="ing-name">Chocolate chips</span><span class="ing-amt">10 g</span></label>
-      <label class="item" title="Two 5- or 6-inch springform pans — one-time buy"><input type="checkbox"><span class="ing-name">Two 5- or 6-inch springform pans</span><span class="ing-amt">one-time buy</span></label>
+      <label class="item" title="Two 5- or 6-inch springform pans — one-time buy"><input type="checkbox"><span class="ing-name">Springform pans (5–6 in)</span><span class="ing-amt">one-time buy</span></label>
     </div>
   </details>
   <details>
@@ -926,15 +942,14 @@
         var base = parseFloat(label.getAttribute('data-base'));
         if (!base) return;
         var unit = label.getAttribute('data-unit') || '';
-        var amtCell = label.querySelector('.ing-amt');
+        var line = document.createElement('span');
+        line.className = 'scale-line';
 
         var adj = document.createElement('span');
         adj.className = 'adj';
         var flag = document.createElement('span');
         flag.className = 'limit-flag';
         flag.textContent = 'limiting';
-        amtCell.appendChild(adj);
-        amtCell.appendChild(flag);
 
         var wrap = document.createElement('span');
         wrap.className = 'have';
@@ -951,10 +966,13 @@
         u.textContent = unit;
         wrap.appendChild(input);
         wrap.appendChild(u);
-        label.appendChild(wrap);
+        line.appendChild(wrap);
+        line.appendChild(adj);
+        line.appendChild(flag);
+        label.appendChild(line);
 
-        // keep clicks on the input from toggling the row's checkbox
-        wrap.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
+        // keep clicks on the scale controls from toggling the row's checkbox
+        line.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); });
         input.addEventListener('input', update);
 
         rows.push({ label: label, base: base, unit: unit, input: input, adj: adj });
@@ -979,6 +997,31 @@
       status.appendChild(reset);
       list.insertBefore(status, list.firstChild);
       card._scaleUpdate = function () { update(); };
+
+      // "Scale" pill on the Ingredients header toggles the mode
+      var det = list.closest('details');
+      var summ = det ? det.querySelector('summary') : null;
+      if (summ) {
+        var pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'scale-pill';
+        pill.textContent = 'Scale';
+        pill.setAttribute('aria-pressed', 'false');
+        pill.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var on = !card.classList.contains('scaling');
+          card.classList.toggle('scaling', on);
+          pill.setAttribute('aria-pressed', on ? 'true' : 'false');
+          pill.textContent = on ? 'Done' : 'Scale';
+          if (on) { det.open = true; }
+          else {
+            rows.forEach(function (r) { r.input.value = ''; });
+            update();
+          }
+        });
+        summ.appendChild(pill);
+      }
 
       function update() {
         var provided = rows.filter(function (r) {
