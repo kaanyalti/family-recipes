@@ -36,9 +36,9 @@ tap-to-scale: entering how much you have rescales the whole recipe live to the
 most limiting ingredient (e.g. `data-base="500" data-unit="g"`). Leave the
 attributes off non-scalable rows (to-taste items, equipment).
 
-Recipes are listed alphabetically and filtered by tags rather than grouped:
-give each `<article>` metadata like `data-cuisine="mexican" data-course="main"
-data-protein="beef" data-traits="batch high-protein"`. Filter chips and card
-pills are generated from these attributes, and the ingredient filter box
-matches the actual ingredient rows. Keep new recipes in alphabetical order
-within the single `.cards` list.
+Recipes are grouped by course (Mains / Quick Lunch / Desserts) and carry
+metadata like `data-cuisine="mexican" data-course="main" data-protein="beef"
+data-traits="batch high-protein"`, rendered as pills on each card. The
+"Show first" chips never hide anything: matches float to the top of their
+group and the rest dim. Keep new recipes in alphabetical order within their
+course's `.cards` list.
