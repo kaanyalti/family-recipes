@@ -261,38 +261,71 @@
   .variant-tab:hover { border-color: var(--green); }
   .variant-tab:focus-visible { outline: 2px solid var(--green); }
   .variant-tab.active { background: var(--green); border-color: var(--green); color: #fff; }
-  .jump {
-    margin-top: 1.1rem;
+  .filters {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .filter-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.35rem;
   }
-  .jump a {
-    font-size: 0.78rem;
+  .filter-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    min-width: 4.4rem;
+  }
+  .filter-chip {
+    font: inherit;
+    font-size: 0.76rem;
     font-weight: 700;
     color: var(--green);
-    text-decoration: none;
-    border: 1px solid var(--rule);
     background: var(--card);
-    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--rule);
     border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    cursor: pointer;
   }
-  .jump a:hover, .jump a:focus-visible { border-color: var(--green); }
-  h2 { scroll-margin-top: 1rem; }
+  .filter-chip:hover { border-color: var(--green); }
+  .filter-chip:focus-visible { outline: 2px solid var(--green); }
+  .filter-chip.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .ing-filter {
+    font: inherit;
+    font-size: 0.8rem;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.2rem 0.75rem;
+    width: 11rem;
+  }
+  .ing-filter:focus-visible { outline: 2px solid var(--green); }
+  .term-wrap { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; }
+  .filter-count { font-size: 0.72rem; color: var(--faint); margin-top: 0.15rem; }
+  .tags { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .tag {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.08rem 0.5rem;
+  }
+  .no-match { color: var(--faint); font-style: italic; margin: 1.2rem 0; }
+  .filtered-out { display: none !important; }
   @media (prefers-reduced-motion: no-preference) {
     .ticket { transition: border-color 0.15s ease; }
     .ticket:hover { border-color: var(--green); }
   }
   .side { display: none; }
-  .side-h {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--faint);
-    margin: 1.1rem 0 0.25rem 0.6rem;
-  }
-  .side-h:first-child { margin-top: 0; }
   .side-link {
     display: block;
     width: 100%;
@@ -327,14 +360,12 @@
     }
     .cards .ticket { margin-bottom: 0; }
     /* master-detail (body.desktop is set by JS) */
-    body.desktop .jump { display: none; }
     body.desktop main {
       display: grid;
       grid-template-columns: 15rem minmax(0, 1fr);
       gap: 1.8rem;
       align-items: start;
     }
-    body.desktop main > h2 { display: none; }
     body.desktop .cards { display: contents; }
     body.desktop article.ticket { display: none; }
     body.desktop .side {
@@ -368,192 +399,44 @@
   <p class="eyebrow">Easy · Batch-friendly · Toddler-approved</p>
   <h1>Family Kitchen Index</h1>
   <p class="intro">The new rotation: thirteen recipes, each with its trusted source links and a tap-to-check ingredient list.</p>
-  <nav class="jump" aria-label="Recipe sections"><a href="#asian">Asian</a><a href="#mexican-south-american">Mexican &amp; South American</a><a href="#quick-lunch">Quick Lunch</a><a href="#dessert">Dessert</a></nav>
 </header>
 
 <main>
 
-<h2 id="asian">Asian</h2>
-
 <div class="cards">
 
-<article class="ticket">
+<article class="ticket" data-cuisine="mexican" data-course="main" data-protein="beef">
   <div class="ticket-head">
-    <div class="ticket-top"><h3>Mild Coconut Chicken Curry</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">Freezes up to 3 months. Chili at the table for adults. Serve over rice.</p>
-    <p class="links"><a href="https://simplehomeedit.com/recipe/quick-coconut-chicken-curry/">Simple Home Edit</a><a href="https://www.halfbakedharvest.com/simple-coconut-chicken-curry/">Half Baked Harvest</a></p>
+    <div class="ticket-top"><h3>Carne Asada</h3></div>
+    <p class="meta">Marinate 1–8 hours max. Works on a grill pan indoors. Slice against the grain.</p>
+    <p class="links"><a href="https://www.mexicoinmykitchen.com/carne-asada-recipe/">Mexico in My Kitchen</a><a href="https://somuchfoodblog.com/carne-asada-recipe/">So Much Food</a></p>
     <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="600" data-unit="g" title="Chicken thighs, boneless — 1.3 lb (600 g)"><input type="checkbox"><span class="ing-name">Chicken thighs, boneless</span><span class="ing-amt">600 g</span></label>
-      <label class="item" data-base="400" data-unit="ml" title="Coconut milk — 1 can (400 ml)"><input type="checkbox"><span class="ing-name">Coconut milk</span><span class="ing-amt">400 ml</span></label>
-      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
-      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
-      <label class="item" data-base="14" data-unit="g" title="Mild curry powder — 2 tbsp (14 g)"><input type="checkbox"><span class="ing-name">Mild curry powder</span><span class="ing-amt">14 g</span></label>
-      <label class="item" data-base="16" data-unit="g" title="Tomato paste — 1 tbsp (16 g)"><input type="checkbox"><span class="ing-name">Tomato paste</span><span class="ing-amt">16 g</span></label>
-      <label class="item" data-base="7" data-unit="g" title="Honey — 1 tsp (7 g)"><input type="checkbox"><span class="ing-name">Honey</span><span class="ing-amt">7 g</span></label>
-      <label class="item" data-base="150" data-unit="g" title="Frozen peas or broccoli — 1 cup (150 g)"><input type="checkbox"><span class="ing-name">Frozen peas or broccoli</span><span class="ing-amt">150 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
-    </div>
-  </details>
-  <details>
-    <summary>How to make</summary>
-    <ol class="steps">
-      <li>Cook the diced onion in a little oil until soft, then add garlic, curry powder, and tomato paste; stir 1 minute.</li>
-      <li>Add the diced chicken thighs and brown on all sides.</li>
-      <li>Pour in the coconut milk and honey; simmer 15–20 minutes until the chicken is cooked through and the sauce thickens.</li>
-      <li>Stir in the peas or broccoli and cook 3–4 minutes. Season to taste.</li>
-      <li>Serve over rice; add chili at the table for the adults.</li>
-    </ol>
-  </details>
-</article>
-
-<article class="ticket">
-  <div class="ticket-head">
-    <div class="ticket-top"><h3>Korean Beef Bowls</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">20 minutes. Skip pepper flakes for the toddler batch. Beef keeps 4 days.</p>
-    <p class="links"><a href="https://damndelicious.net/2013/07/07/korean-beef-bowl/">Damn Delicious</a><a href="https://therecipecritic.com/korean-ground-beef-rice-bowls/">The Recipe Critic</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
-  </div>
-  <details>
-    <summary>Ingredients</summary>
-    <div class="list">
-      <label class="item" data-base="500" data-unit="g" title="Minced beef — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Minced beef</span><span class="ing-amt">500 g</span></label>
-      <label class="item" data-base="60" data-unit="ml" title="Soy sauce — 4 tbsp (60 ml)"><input type="checkbox"><span class="ing-name">Soy sauce</span><span class="ing-amt">60 ml</span></label>
-      <label class="item" data-base="25" data-unit="g" title="Brown sugar — 2 tbsp (25 g)"><input type="checkbox"><span class="ing-name">Brown sugar</span><span class="ing-amt">25 g</span></label>
-      <label class="item" data-base="15" data-unit="ml" title="Sesame oil — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">15 ml</span></label>
-      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
-      <label class="item" data-base="5" data-unit="g" title="Fresh ginger — 1 tsp grated (5 g)"><input type="checkbox"><span class="ing-name">Fresh ginger</span><span class="ing-amt">5 g</span></label>
-      <label class="item" data-base="2" data-unit="" title="Green onions — 2"><input type="checkbox"><span class="ing-name">Green onions</span><span class="ing-amt">2</span></label>
-      <label class="item" data-base="3" data-unit="g" title="Sesame seeds — 1 tsp (3 g)"><input type="checkbox"><span class="ing-name">Sesame seeds</span><span class="ing-amt">3 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Broccoli, to serve — 1 head (~300 g)"><input type="checkbox"><span class="ing-name">Broccoli, to serve</span><span class="ing-amt">~300 g</span></label>
-    </div>
-  </details>
-  <details>
-    <summary>How to make</summary>
-    <ol class="steps">
-      <li>Brown the minced beef in a dry pan, breaking it up; drain any excess fat.</li>
-      <li>Add the garlic and grated ginger; cook 30 seconds.</li>
-      <li>Stir in the soy sauce, brown sugar, and sesame oil (add pepper flakes only to the adult batch); simmer 2–3 minutes.</li>
-      <li>Spoon over rice and top with green onions and sesame seeds. Serve broccoli alongside.</li>
-    </ol>
-  </details>
-</article>
-
-<article class="ticket">
-  <div class="ticket-head">
-    <div class="ticket-top"><h3>Tuna Mayo Kimbap</h3></div>
-    <p class="meta">Eat same day. Fillings prep ahead and keep 2–3 days; rolling takes 10 minutes.</p>
-    <p class="links"><a href="https://mykoreankitchen.com/tuna-kimbap/">My Korean Kitchen</a><a href="https://www.beyondkimchee.com/cucumber-tuna-kimbap/">Beyond Kimchee</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
-  </div>
-  <details>
-    <summary>Ingredients</summary>
-    <div class="list">
-      <label class="item" data-base="400" data-unit="g" title="Short-grain (sushi) rice — 2 cups dry (400 g)"><input type="checkbox"><span class="ing-name">Sushi rice</span><span class="ing-amt">400 g</span></label>
-      <label class="item" data-base="2" data-unit="cans" title="Canned tuna — 2 cans (2 × 140 g drained)"><input type="checkbox"><span class="ing-name">Canned tuna</span><span class="ing-amt">2 cans</span></label>
-      <label class="item" data-base="45" data-unit="g" title="Mayonnaise — 3 tbsp (45 g)"><input type="checkbox"><span class="ing-name">Mayonnaise</span><span class="ing-amt">45 g</span></label>
-      <label class="item" data-base="4" data-unit="sheets" title="Nori / gim seaweed — 4 sheets"><input type="checkbox"><span class="ing-name">Nori / gim seaweed</span><span class="ing-amt">4 sheets</span></label>
-      <label class="item" data-base="3" data-unit="eggs" title="Eggs — 3"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">3</span></label>
-      <label class="item" data-base="70" data-unit="g" title="Carrot — 1 medium (~70 g)"><input type="checkbox"><span class="ing-name">Carrot</span><span class="ing-amt">~70 g</span></label>
-      <label class="item" data-base="100" data-unit="g" title="Cucumber — ½ (~100 g)"><input type="checkbox"><span class="ing-name">Cucumber</span><span class="ing-amt">~100 g</span></label>
-      <label class="item" data-base="30" data-unit="ml" title="Sesame oil — 2 tbsp (30 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">30 ml</span></label>
-      <label class="item" title="Pickled radish (danmuji) — optional, 4 strips"><input type="checkbox"><span class="ing-name">Pickled radish (danmuji)</span><span class="ing-amt">optional, 4 strips</span></label>
-      <label class="item" title="Bamboo rolling mat — one-time buy"><input type="checkbox"><span class="ing-name">Bamboo rolling mat</span><span class="ing-amt">one-time buy</span></label>
-    </div>
-  </details>
-  <details>
-    <summary>How to make</summary>
-    <ol class="steps">
-      <li>Cook the rice, then toss it warm with a little sesame oil and a pinch of salt; let it cool slightly.</li>
-      <li>Mix the drained tuna with mayo. Beat and fry the eggs into a thin omelette, then slice into strips. Julienne the carrot (sauté 1 minute) and cucumber.</li>
-      <li>Lay a nori sheet shiny-side down on the mat and spread a thin, even layer of rice, leaving the far edge bare.</li>
-      <li>Line the fillings across the center, then roll away from you with the mat, pressing firmly.</li>
-      <li>Brush with sesame oil and slice with a sharp, wet knife. Eat the same day.</li>
-    </ol>
-  </details>
-</article>
-
-<article class="ticket">
-  <div class="ticket-head">
-    <div class="ticket-top"><h3>Honey Garlic Shrimp</h3></div>
-    <p class="meta">10–20 minutes. Cook fresh — shrimp goes rubbery reheated. Pairs with rice + broccoli.</p>
-    <p class="links"><a href="https://www.acouplecooks.com/honey-garlic-shrimp/">A Couple Cooks</a><a href="https://sallysbakingaddiction.com/quick-healthy-dinner-20-minute-honey-garlic-shrimp/">Sally's Baking Addiction</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
-  </div>
-  <details>
-    <summary>Ingredients</summary>
-    <div class="list">
-      <label class="item" data-base="450" data-unit="g" title="Shrimp, peeled &amp; deveined — 1 lb (450 g)"><input type="checkbox"><span class="ing-name">Shrimp, peeled &amp; deveined</span><span class="ing-amt">450 g</span></label>
-      <label class="item" data-base="63" data-unit="g" title="Honey — 3 tbsp (63 g)"><input type="checkbox"><span class="ing-name">Honey</span><span class="ing-amt">63 g</span></label>
+      <label class="item" data-base="700" data-unit="g" title="Flank or skirt steak — 1.5 lb (700 g)"><input type="checkbox"><span class="ing-name">Flank or skirt steak</span><span class="ing-amt">700 g</span></label>
+      <label class="item" data-base="1" data-unit="" title="Orange — 1 (juiced, ~½ cup) (120 ml)"><input type="checkbox"><span class="ing-name">Orange</span><span class="ing-amt">1</span></label>
+      <label class="item" data-base="2" data-unit="" title="Limes — 2 (juiced, ~¼ cup) (60 ml)"><input type="checkbox"><span class="ing-name">Limes</span><span class="ing-amt">2</span></label>
       <label class="item" data-base="30" data-unit="ml" title="Soy sauce — 2 tbsp (30 ml)"><input type="checkbox"><span class="ing-name">Soy sauce</span><span class="ing-amt">30 ml</span></label>
-      <label class="item" data-base="15" data-unit="ml" title="Rice vinegar — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Rice vinegar</span><span class="ing-amt">15 ml</span></label>
-      <label class="item" data-base="15" data-unit="ml" title="Sesame oil — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">15 ml</span></label>
-      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
-      <label class="item" data-base="3" data-unit="g" title="Cornstarch — 1 tsp (3 g)"><input type="checkbox"><span class="ing-name">Cornstarch</span><span class="ing-amt">3 g</span></label>
-      <label class="item" title="Rice + broccoli, to serve"><input type="checkbox"><span class="ing-name">Rice + broccoli, to serve</span></label>
+      <label class="item" data-base="4" data-unit="cloves" title="Garlic — 4 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">4 cloves</span></label>
+      <label class="item" data-base="25" data-unit="g" title="Fresh cilantro — ½ bunch (~25 g)"><input type="checkbox"><span class="ing-name">Fresh cilantro</span><span class="ing-amt">~25 g</span></label>
+      <label class="item" data-base="2" data-unit="g" title="Ground cumin — 1 tsp (2 g)"><input type="checkbox"><span class="ing-name">Ground cumin</span><span class="ing-amt">2 g</span></label>
+      <label class="item" title="Tortillas"><input type="checkbox"><span class="ing-name">Tortillas</span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
     <ol class="steps">
-      <li>Whisk the honey, soy sauce, rice vinegar, and cornstarch into a sauce.</li>
-      <li>Sear the shrimp in sesame oil, about 1–2 minutes per side, until pink.</li>
-      <li>Add the garlic and cook 30 seconds.</li>
-      <li>Pour in the sauce and toss 1 minute until glossy and thickened. Serve over rice with broccoli.</li>
+      <li>Whisk the orange and lime juice, soy sauce, garlic, chopped cilantro, and cumin; marinate the steak 1–8 hours (no longer).</li>
+      <li>Sear on a hot grill pan, 3–4 minutes per side, to your preferred doneness.</li>
+      <li>Rest 5 minutes, then slice thinly against the grain.</li>
+      <li>Serve in warm tortillas.</li>
     </ol>
   </details>
 </article>
 
-</div>
-
-<h2 id="mexican-south-american">Mexican &amp; South American</h2>
-
-<div class="cards">
-
-<article class="ticket">
-  <div class="ticket-head">
-    <div class="ticket-top"><h3>Picadillo</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">Minced meat + tomato + potatoes in one pan. Keeps 4 days, freezes. Double it.</p>
-    <p class="links"><a href="https://themodernproper.com/picadillo">Modern Proper (Mexican)</a><a href="https://www.skinnytaste.com/picadillo-6-ww-pts/">Skinnytaste (Cuban)</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
-    <div class="variants" role="group" aria-label="Recipe versions"><button type="button" class="variant-tab" data-variant="mexican">Mexican</button><button type="button" class="variant-tab" data-variant="cuban">Cuban</button></div>
-  </div>
-  <details>
-    <summary>Ingredients</summary>
-    <div class="list">
-      <label class="item" data-base="500" data-unit="g" title="Minced beef — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Minced beef</span><span class="ing-amt">500 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Potatoes — 2 medium (~300 g)"><input type="checkbox"><span class="ing-name">Potatoes</span><span class="ing-amt">~300 g</span></label>
-      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
-      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
-      <label class="item" data-base="225" data-unit="g" title="Tomato sauce — 1 can (8 oz) (225 g)"><input type="checkbox"><span class="ing-name">Tomato sauce</span><span class="ing-amt">225 g</span></label>
-      <label class="item" data-base="120" data-unit="ml" title="Beef broth — ½ cup (120 ml)"><input type="checkbox"><span class="ing-name">Beef broth</span><span class="ing-amt">120 ml</span></label>
-      <label class="item" data-base="2" data-unit="g" title="Ground cumin — 1 tsp (2 g)"><input type="checkbox"><span class="ing-name">Ground cumin</span><span class="ing-amt">2 g</span></label>
-      <label class="item" data-base="0.6" data-unit="g" title="Cinnamon — ¼ tsp (0.6 g)"><input type="checkbox"><span class="ing-name">Cinnamon</span><span class="ing-amt">0.6 g</span></label>
-      <label class="item" data-base="45" data-unit="g" data-variant-only="cuban" title="Green olives — ⅓ cup (45 g)"><input type="checkbox"><span class="ing-name">Green olives</span><span class="ing-amt">45 g</span></label>
-    </div>
-  </details>
-  <details>
-    <summary>How to make</summary>
-    <ol class="steps" data-variant-only="mexican">
-      <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
-      <li>Stir in the cumin and cinnamon, then the tomato sauce, broth, and diced potatoes.</li>
-      <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
-      <li>Serve with rice.</li>
-    </ol>
-    <ol class="steps" data-variant-only="cuban">
-      <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
-      <li>Stir in the cumin, then the tomato sauce, broth, and diced potatoes.</li>
-      <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
-      <li>Stir in the green olives (a splash of their brine is good) and warm through. Serve with rice.</li>
-    </ol>
-  </details>
-</article>
-
-<article class="ticket">
+<article class="ticket" data-cuisine="mexican" data-course="main" data-protein="chicken" data-traits="batch">
   <div class="ticket-head">
     <div class="ticket-top"><h3>Chicken Tinga</h3><span class="batch">★ Batch</span></div>
     <p class="meta">Smoky shredded chicken for tacos, tostadas, or rice. Freezes well. Use ½ chipotle for toddler-mild.</p>
@@ -592,38 +475,68 @@
   </details>
 </article>
 
-<article class="ticket">
+<article class="ticket" data-course="dessert" data-traits="batch high-protein">
   <div class="ticket-head">
-    <div class="ticket-top"><h3>Carne Asada</h3></div>
-    <p class="meta">Marinate 1–8 hours max. Works on a grill pan indoors. Slice against the grain.</p>
-    <p class="links"><a href="https://www.mexicoinmykitchen.com/carne-asada-recipe/">Mexico in My Kitchen</a><a href="https://somuchfoodblog.com/carne-asada-recipe/">So Much Food</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="ticket-top"><h3>Choc Banana Cake</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">One-bowl blender cake, makes 8 slices. Sweetened with banana and maple. Cool, then chill in the fridge before eating.</p>
+    <p class="links"><a href="https://www.instagram.com/fillingmeals/">Recipe by @fillingmeals</a></p>
+    <p class="macros"><strong>Per slice (of 8):</strong> 7 g protein · 17 g carbs · 2 g fat · 100 kcal</p>
   </div>
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="700" data-unit="g" title="Flank or skirt steak — 1.5 lb (700 g)"><input type="checkbox"><span class="ing-name">Flank or skirt steak</span><span class="ing-amt">700 g</span></label>
-      <label class="item" data-base="1" data-unit="" title="Orange — 1 (juiced, ~½ cup) (120 ml)"><input type="checkbox"><span class="ing-name">Orange</span><span class="ing-amt">1</span></label>
-      <label class="item" data-base="2" data-unit="" title="Limes — 2 (juiced, ~¼ cup) (60 ml)"><input type="checkbox"><span class="ing-name">Limes</span><span class="ing-amt">2</span></label>
-      <label class="item" data-base="30" data-unit="ml" title="Soy sauce — 2 tbsp (30 ml)"><input type="checkbox"><span class="ing-name">Soy sauce</span><span class="ing-amt">30 ml</span></label>
-      <label class="item" data-base="4" data-unit="cloves" title="Garlic — 4 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">4 cloves</span></label>
-      <label class="item" data-base="25" data-unit="g" title="Fresh cilantro — ½ bunch (~25 g)"><input type="checkbox"><span class="ing-name">Fresh cilantro</span><span class="ing-amt">~25 g</span></label>
-      <label class="item" data-base="2" data-unit="g" title="Ground cumin — 1 tsp (2 g)"><input type="checkbox"><span class="ing-name">Ground cumin</span><span class="ing-amt">2 g</span></label>
-      <label class="item" title="Tortillas"><input type="checkbox"><span class="ing-name">Tortillas</span></label>
+      <label class="item" data-base="4" data-unit="bananas" title="Ripe bananas — 4 (~350 g flesh)"><input type="checkbox"><span class="ing-name">Ripe bananas</span><span class="ing-amt">4</span></label>
+      <label class="item" data-base="3" data-unit="eggs" title="Eggs — 3 medium"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">3 medium</span></label>
+      <label class="item" data-base="250" data-unit="g" title="Cottage cheese, 0% fat — 250 g (1 cup)"><input type="checkbox"><span class="ing-name">Cottage cheese, 0% fat</span><span class="ing-amt">250 g</span></label>
+      <label class="item" data-base="30" data-unit="g" title="Cocoa powder — 30 g (¼ cup)"><input type="checkbox"><span class="ing-name">Cocoa powder</span><span class="ing-amt">30 g</span></label>
+      <label class="item" data-base="30" data-unit="g" title="Maple syrup — 30 g (1½ tbsp)"><input type="checkbox"><span class="ing-name">Maple syrup</span><span class="ing-amt">30 g</span></label>
+      <label class="item" data-base="2" data-unit="tsp" title="Baking powder — 2 tsp (8 g)"><input type="checkbox"><span class="ing-name">Baking powder</span><span class="ing-amt">2 tsp</span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
     <ol class="steps">
-      <li>Whisk the orange and lime juice, soy sauce, garlic, chopped cilantro, and cumin; marinate the steak 1–8 hours (no longer).</li>
-      <li>Sear on a hot grill pan, 3–4 minutes per side, to your preferred doneness.</li>
-      <li>Rest 5 minutes, then slice thinly against the grain.</li>
-      <li>Serve in warm tortillas.</li>
+      <li>Preheat oven to 180 °C / 360 °F and line a baking tin.</li>
+      <li>Put everything in a bowl — bananas, eggs, cottage cheese, cocoa, maple syrup, baking powder — and blend smooth with a stick blender (a whisk or regular blender works too).</li>
+      <li>Pour into the tin and bake 45 minutes.</li>
+      <li>Let it cool, then store in the fridge — it's best eaten chilled. Slice into 8.</li>
     </ol>
   </details>
 </article>
 
-<article class="ticket">
+<article class="ticket" data-course="lunch" data-protein="fish" data-traits="no-cook high-protein">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Creamy Salmon Salad</h3></div>
+    <p class="meta">No cooking, 5 minutes. Great on toast, in a wrap, or straight from the bowl — perfect for hot days. Serves 2.</p>
+    <p class="links"><a href="https://www.instagram.com/louishowardpt/">Louis Howard PT</a><a href="https://www.instagram.com/adamhoad_coaching/">Original by @adamhoad_coaching</a></p>
+    <p class="macros"><strong>Per serving (of 2):</strong> 29 g protein · 6 g carbs · 16 g fat · 3 g fibre · 278 kcal</p>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="240" data-unit="g" title="Cooked salmon fillets — 240 g"><input type="checkbox"><span class="ing-name">Cooked salmon fillets</span><span class="ing-amt">240 g</span></label>
+      <label class="item" data-base="70" data-unit="g" title="Avocado — 70 g"><input type="checkbox"><span class="ing-name">Avocado</span><span class="ing-amt">70 g</span></label>
+      <label class="item" data-base="80" data-unit="g" title="Greek yoghurt, 0% fat — 80 g"><input type="checkbox"><span class="ing-name">Greek yoghurt, 0% fat</span><span class="ing-amt">80 g</span></label>
+      <label class="item" data-base="1" data-unit="" title="Lemon — 1, juiced"><input type="checkbox"><span class="ing-name">Lemon</span><span class="ing-amt">1</span></label>
+      <label class="item" data-base="100" data-unit="g" title="Cucumber — 100 g"><input type="checkbox"><span class="ing-name">Cucumber</span><span class="ing-amt">100 g</span></label>
+      <label class="item" title="Salt and pepper — to taste"><input type="checkbox"><span class="ing-name">Salt and pepper</span><span class="ing-amt">to taste</span></label>
+      <label class="item" title="Hot sauce — optional"><input type="checkbox"><span class="ing-name">Hot sauce</span><span class="ing-amt">optional</span></label>
+      <label class="item" title="Fresh dill — optional"><input type="checkbox"><span class="ing-name">Fresh dill</span><span class="ing-amt">optional</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps">
+      <li>Flake the cooked salmon into a bowl.</li>
+      <li>Add the avocado, yoghurt, lemon juice, and diced cucumber.</li>
+      <li>Season with salt and pepper and mix until creamy.</li>
+      <li>Add hot sauce or fresh dill if you're feeling fancy.</li>
+      <li>Serve on toast, in a wrap, or straight from the bowl.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="mexican" data-course="main" data-protein="fish">
   <div class="ticket-head">
     <div class="ticket-top"><h3>Fish Tacos (Tilapia or Cod)</h3></div>
     <p class="meta">20 minutes, pan-seared or baked. Mild fish, toddler-friendly without the sauce.</p>
@@ -661,84 +574,44 @@
   </details>
 </article>
 
-<article class="ticket">
+<article class="ticket" data-course="dessert" data-traits="batch high-protein">
   <div class="ticket-head">
-    <div class="ticket-top"><h3>Moqueca (Brazilian Fish Stew)</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">Cod, tilapia, salmon, or shrimp in coconut-tomato broth. Batch the sauce; cook fish fresh in it.</p>
-    <p class="links"><a href="https://www.recipetineats.com/brazilian-fish-stew-moqueca-baiana/">RecipeTin Eats</a><a href="https://www.feastingathome.com/brazilian-fish-stew-aka-moqueca/">Feasting at Home</a></p>
-    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="ticket-top"><h3>Fudgy Protein Brownies</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">Blend the wet, fold into the dry, bake 12–15 minutes. Makes 9 — even better chilled from the fridge. Bake shorter for fudgier.</p>
+    <p class="links"><a href="https://www.instagram.com/mattwest_roadtoaesthetics/">Recipe by @mattwest_roadtoaesthetics</a></p>
+    <p class="macros"><strong>Per brownie (of 9):</strong> 11 g protein · 8 g carbs · 2 g fat · 99 kcal</p>
   </div>
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="500" data-unit="g" title="Firm white fish (cod/tilapia) — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Firm white fish</span><span class="ing-amt">500 g</span></label>
-      <label class="item" data-base="400" data-unit="ml" title="Coconut milk — 1 can (400 ml)"><input type="checkbox"><span class="ing-name">Coconut milk</span><span class="ing-amt">400 ml</span></label>
-      <label class="item" data-base="400" data-unit="g" title="Tomatoes — 2 fresh or 1 can (400 g)"><input type="checkbox"><span class="ing-name">Tomatoes</span><span class="ing-amt">400 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Bell peppers — 2 (~300 g)"><input type="checkbox"><span class="ing-name">Bell peppers</span><span class="ing-amt">~300 g</span></label>
-      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
-      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
-      <label class="item" data-base="1" data-unit="" title="Lime — 1"><input type="checkbox"><span class="ing-name">Lime</span><span class="ing-amt">1</span></label>
-      <label class="item" data-base="7" data-unit="g" title="Sweet paprika — 1 tbsp (7 g)"><input type="checkbox"><span class="ing-name">Sweet paprika</span><span class="ing-amt">7 g</span></label>
-      <label class="item" data-base="25" data-unit="g" title="Fresh cilantro — ½ bunch (~25 g)"><input type="checkbox"><span class="ing-name">Fresh cilantro</span><span class="ing-amt">~25 g</span></label>
-      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
+      <label class="item" data-base="80" data-unit="g" title="Plain flour — 80 g"><input type="checkbox"><span class="ing-name">Plain flour</span><span class="ing-amt">80 g</span></label>
+      <label class="item" data-base="20" data-unit="g" title="Cocoa powder — 20 g"><input type="checkbox"><span class="ing-name">Cocoa powder</span><span class="ing-amt">20 g</span></label>
+      <label class="item" data-base="65" data-unit="g" title="Chocolate protein powder — 65 g"><input type="checkbox"><span class="ing-name">Chocolate protein powder</span><span class="ing-amt">65 g</span></label>
+      <label class="item" data-base="10" data-unit="g" title="Sweetener — 10 g"><input type="checkbox"><span class="ing-name">Sweetener</span><span class="ing-amt">10 g</span></label>
+      <label class="item" title="Salt — pinch"><input type="checkbox"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></label>
+      <label class="item" data-base="150" data-unit="ml" title="Egg whites — 150 ml"><input type="checkbox"><span class="ing-name">Egg whites</span><span class="ing-amt">150 ml</span></label>
+      <label class="item" data-base="2" data-unit="eggs" title="Eggs — 2 large"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">2 large</span></label>
+      <label class="item" data-base="100" data-unit="g" title="Cottage cheese — 100 g"><input type="checkbox"><span class="ing-name">Cottage cheese</span><span class="ing-amt">100 g</span></label>
+      <label class="item" data-base="20" data-unit="g" title="Apple sauce — 20 g"><input type="checkbox"><span class="ing-name">Apple sauce</span><span class="ing-amt">20 g</span></label>
+      <label class="item" data-base="20" data-unit="ml" title="Maple syrup — 20 ml"><input type="checkbox"><span class="ing-name">Maple syrup</span><span class="ing-amt">20 ml</span></label>
+      <label class="item" data-base="5" data-unit="ml" title="Vanilla extract — 5 ml"><input type="checkbox"><span class="ing-name">Vanilla extract</span><span class="ing-amt">5 ml</span></label>
+      <label class="item" title="Chocolate chips — optional"><input type="checkbox"><span class="ing-name">Chocolate chips</span><span class="ing-amt">optional</span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
     <ol class="steps">
-      <li>Sauté the onion, bell peppers, and garlic until soft, then stir in the paprika.</li>
-      <li>Add the tomatoes and coconut milk; simmer 10 minutes to build the sauce (batch this ahead if you like).</li>
-      <li>Nestle the fish into the broth and simmer gently 8–10 minutes, until just cooked.</li>
-      <li>Finish with lime juice and cilantro. Serve over rice.</li>
+      <li>Preheat oven to 180 °C / 355 °F and line a baking tray.</li>
+      <li>Mix all the dry ingredients together.</li>
+      <li>Blend the wet ingredients for about 10 seconds.</li>
+      <li>Fold the wet mixture into the dry until you have a thick brownie batter, adding the chocolate chips if using.</li>
+      <li>Pour into the lined tray and bake 12–15 minutes — shorter for fudgier.</li>
+      <li>Cool completely (they're even better after chilling in the fridge), then slice into 9.</li>
     </ol>
   </details>
 </article>
 
-</div>
-
-<h2 id="quick-lunch">Quick Lunch</h2>
-
-<div class="cards">
-
-<article class="ticket">
-  <div class="ticket-head">
-    <div class="ticket-top"><h3>Creamy Salmon Salad</h3></div>
-    <p class="meta">No cooking, 5 minutes. Great on toast, in a wrap, or straight from the bowl — perfect for hot days. Serves 2.</p>
-    <p class="links"><a href="https://www.instagram.com/louishowardpt/">Louis Howard PT</a><a href="https://www.instagram.com/adamhoad_coaching/">Original by @adamhoad_coaching</a></p>
-    <p class="macros"><strong>Per serving (of 2):</strong> 29 g protein · 6 g carbs · 16 g fat · 3 g fibre · 278 kcal</p>
-  </div>
-  <details>
-    <summary>Ingredients</summary>
-    <div class="list">
-      <label class="item" data-base="240" data-unit="g" title="Cooked salmon fillets — 240 g"><input type="checkbox"><span class="ing-name">Cooked salmon fillets</span><span class="ing-amt">240 g</span></label>
-      <label class="item" data-base="70" data-unit="g" title="Avocado — 70 g"><input type="checkbox"><span class="ing-name">Avocado</span><span class="ing-amt">70 g</span></label>
-      <label class="item" data-base="80" data-unit="g" title="Greek yoghurt, 0% fat — 80 g"><input type="checkbox"><span class="ing-name">Greek yoghurt, 0% fat</span><span class="ing-amt">80 g</span></label>
-      <label class="item" data-base="1" data-unit="" title="Lemon — 1, juiced"><input type="checkbox"><span class="ing-name">Lemon</span><span class="ing-amt">1</span></label>
-      <label class="item" data-base="100" data-unit="g" title="Cucumber — 100 g"><input type="checkbox"><span class="ing-name">Cucumber</span><span class="ing-amt">100 g</span></label>
-      <label class="item" title="Salt and pepper — to taste"><input type="checkbox"><span class="ing-name">Salt and pepper</span><span class="ing-amt">to taste</span></label>
-      <label class="item" title="Hot sauce — optional"><input type="checkbox"><span class="ing-name">Hot sauce</span><span class="ing-amt">optional</span></label>
-      <label class="item" title="Fresh dill — optional"><input type="checkbox"><span class="ing-name">Fresh dill</span><span class="ing-amt">optional</span></label>
-    </div>
-  </details>
-  <details>
-    <summary>How to make</summary>
-    <ol class="steps">
-      <li>Flake the cooked salmon into a bowl.</li>
-      <li>Add the avocado, yoghurt, lemon juice, and diced cucumber.</li>
-      <li>Season with salt and pepper and mix until creamy.</li>
-      <li>Add hot sauce or fresh dill if you're feeling fancy.</li>
-      <li>Serve on toast, in a wrap, or straight from the bowl.</li>
-    </ol>
-  </details>
-</article>
-
-</div>
-
-<h2 id="dessert">Dessert</h2>
-
-<div class="cards">
-
-<article class="ticket">
+<article class="ticket" data-course="dessert" data-traits="batch high-protein">
   <div class="ticket-head">
     <div class="ticket-top"><h3>High Protein Chocolate Brownie</h3><span class="batch">★ Batch</span></div>
     <p class="meta">A brownie base with a protein-cookie top. Makes 2 trays — freezer-friendly. Add more flour to the brownie batter for a denser bite.</p>
@@ -791,68 +664,205 @@
   </details>
 </article>
 
-<article class="ticket">
+<article class="ticket" data-cuisine="asian" data-course="main" data-protein="fish">
   <div class="ticket-head">
-    <div class="ticket-top"><h3>Choc Banana Cake</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">One-bowl blender cake, makes 8 slices. Sweetened with banana and maple. Cool, then chill in the fridge before eating.</p>
-    <p class="links"><a href="https://www.instagram.com/fillingmeals/">Recipe by @fillingmeals</a></p>
-    <p class="macros"><strong>Per slice (of 8):</strong> 7 g protein · 17 g carbs · 2 g fat · 100 kcal</p>
+    <div class="ticket-top"><h3>Honey Garlic Shrimp</h3></div>
+    <p class="meta">10–20 minutes. Cook fresh — shrimp goes rubbery reheated. Pairs with rice + broccoli.</p>
+    <p class="links"><a href="https://www.acouplecooks.com/honey-garlic-shrimp/">A Couple Cooks</a><a href="https://sallysbakingaddiction.com/quick-healthy-dinner-20-minute-honey-garlic-shrimp/">Sally's Baking Addiction</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="4" data-unit="bananas" title="Ripe bananas — 4 (~350 g flesh)"><input type="checkbox"><span class="ing-name">Ripe bananas</span><span class="ing-amt">4</span></label>
-      <label class="item" data-base="3" data-unit="eggs" title="Eggs — 3 medium"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">3 medium</span></label>
-      <label class="item" data-base="250" data-unit="g" title="Cottage cheese, 0% fat — 250 g (1 cup)"><input type="checkbox"><span class="ing-name">Cottage cheese, 0% fat</span><span class="ing-amt">250 g</span></label>
-      <label class="item" data-base="30" data-unit="g" title="Cocoa powder — 30 g (¼ cup)"><input type="checkbox"><span class="ing-name">Cocoa powder</span><span class="ing-amt">30 g</span></label>
-      <label class="item" data-base="30" data-unit="g" title="Maple syrup — 30 g (1½ tbsp)"><input type="checkbox"><span class="ing-name">Maple syrup</span><span class="ing-amt">30 g</span></label>
-      <label class="item" data-base="2" data-unit="tsp" title="Baking powder — 2 tsp (8 g)"><input type="checkbox"><span class="ing-name">Baking powder</span><span class="ing-amt">2 tsp</span></label>
+      <label class="item" data-base="450" data-unit="g" title="Shrimp, peeled &amp; deveined — 1 lb (450 g)"><input type="checkbox"><span class="ing-name">Shrimp, peeled &amp; deveined</span><span class="ing-amt">450 g</span></label>
+      <label class="item" data-base="63" data-unit="g" title="Honey — 3 tbsp (63 g)"><input type="checkbox"><span class="ing-name">Honey</span><span class="ing-amt">63 g</span></label>
+      <label class="item" data-base="30" data-unit="ml" title="Soy sauce — 2 tbsp (30 ml)"><input type="checkbox"><span class="ing-name">Soy sauce</span><span class="ing-amt">30 ml</span></label>
+      <label class="item" data-base="15" data-unit="ml" title="Rice vinegar — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Rice vinegar</span><span class="ing-amt">15 ml</span></label>
+      <label class="item" data-base="15" data-unit="ml" title="Sesame oil — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">15 ml</span></label>
+      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
+      <label class="item" data-base="3" data-unit="g" title="Cornstarch — 1 tsp (3 g)"><input type="checkbox"><span class="ing-name">Cornstarch</span><span class="ing-amt">3 g</span></label>
+      <label class="item" title="Rice + broccoli, to serve"><input type="checkbox"><span class="ing-name">Rice + broccoli, to serve</span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
     <ol class="steps">
-      <li>Preheat oven to 180 °C / 360 °F and line a baking tin.</li>
-      <li>Put everything in a bowl — bananas, eggs, cottage cheese, cocoa, maple syrup, baking powder — and blend smooth with a stick blender (a whisk or regular blender works too).</li>
-      <li>Pour into the tin and bake 45 minutes.</li>
-      <li>Let it cool, then store in the fridge — it's best eaten chilled. Slice into 8.</li>
+      <li>Whisk the honey, soy sauce, rice vinegar, and cornstarch into a sauce.</li>
+      <li>Sear the shrimp in sesame oil, about 1–2 minutes per side, until pink.</li>
+      <li>Add the garlic and cook 30 seconds.</li>
+      <li>Pour in the sauce and toss 1 minute until glossy and thickened. Serve over rice with broccoli.</li>
     </ol>
   </details>
 </article>
 
-<article class="ticket">
+<article class="ticket" data-cuisine="korean" data-course="main" data-protein="beef" data-traits="batch">
   <div class="ticket-head">
-    <div class="ticket-top"><h3>Fudgy Protein Brownies</h3><span class="batch">★ Batch</span></div>
-    <p class="meta">Blend the wet, fold into the dry, bake 12–15 minutes. Makes 9 — even better chilled from the fridge. Bake shorter for fudgier.</p>
-    <p class="links"><a href="https://www.instagram.com/mattwest_roadtoaesthetics/">Recipe by @mattwest_roadtoaesthetics</a></p>
-    <p class="macros"><strong>Per brownie (of 9):</strong> 11 g protein · 8 g carbs · 2 g fat · 99 kcal</p>
+    <div class="ticket-top"><h3>Korean Beef Bowls</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">20 minutes. Skip pepper flakes for the toddler batch. Beef keeps 4 days.</p>
+    <p class="links"><a href="https://damndelicious.net/2013/07/07/korean-beef-bowl/">Damn Delicious</a><a href="https://therecipecritic.com/korean-ground-beef-rice-bowls/">The Recipe Critic</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
   </div>
   <details>
     <summary>Ingredients</summary>
     <div class="list">
-      <label class="item" data-base="80" data-unit="g" title="Plain flour — 80 g"><input type="checkbox"><span class="ing-name">Plain flour</span><span class="ing-amt">80 g</span></label>
-      <label class="item" data-base="20" data-unit="g" title="Cocoa powder — 20 g"><input type="checkbox"><span class="ing-name">Cocoa powder</span><span class="ing-amt">20 g</span></label>
-      <label class="item" data-base="65" data-unit="g" title="Chocolate protein powder — 65 g"><input type="checkbox"><span class="ing-name">Chocolate protein powder</span><span class="ing-amt">65 g</span></label>
-      <label class="item" data-base="10" data-unit="g" title="Sweetener — 10 g"><input type="checkbox"><span class="ing-name">Sweetener</span><span class="ing-amt">10 g</span></label>
-      <label class="item" title="Salt — pinch"><input type="checkbox"><span class="ing-name">Salt</span><span class="ing-amt">pinch</span></label>
-      <label class="item" data-base="150" data-unit="ml" title="Egg whites — 150 ml"><input type="checkbox"><span class="ing-name">Egg whites</span><span class="ing-amt">150 ml</span></label>
-      <label class="item" data-base="2" data-unit="eggs" title="Eggs — 2 large"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">2 large</span></label>
-      <label class="item" data-base="100" data-unit="g" title="Cottage cheese — 100 g"><input type="checkbox"><span class="ing-name">Cottage cheese</span><span class="ing-amt">100 g</span></label>
-      <label class="item" data-base="20" data-unit="g" title="Apple sauce — 20 g"><input type="checkbox"><span class="ing-name">Apple sauce</span><span class="ing-amt">20 g</span></label>
-      <label class="item" data-base="20" data-unit="ml" title="Maple syrup — 20 ml"><input type="checkbox"><span class="ing-name">Maple syrup</span><span class="ing-amt">20 ml</span></label>
-      <label class="item" data-base="5" data-unit="ml" title="Vanilla extract — 5 ml"><input type="checkbox"><span class="ing-name">Vanilla extract</span><span class="ing-amt">5 ml</span></label>
-      <label class="item" title="Chocolate chips — optional"><input type="checkbox"><span class="ing-name">Chocolate chips</span><span class="ing-amt">optional</span></label>
+      <label class="item" data-base="500" data-unit="g" title="Minced beef — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Minced beef</span><span class="ing-amt">500 g</span></label>
+      <label class="item" data-base="60" data-unit="ml" title="Soy sauce — 4 tbsp (60 ml)"><input type="checkbox"><span class="ing-name">Soy sauce</span><span class="ing-amt">60 ml</span></label>
+      <label class="item" data-base="25" data-unit="g" title="Brown sugar — 2 tbsp (25 g)"><input type="checkbox"><span class="ing-name">Brown sugar</span><span class="ing-amt">25 g</span></label>
+      <label class="item" data-base="15" data-unit="ml" title="Sesame oil — 1 tbsp (15 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">15 ml</span></label>
+      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
+      <label class="item" data-base="5" data-unit="g" title="Fresh ginger — 1 tsp grated (5 g)"><input type="checkbox"><span class="ing-name">Fresh ginger</span><span class="ing-amt">5 g</span></label>
+      <label class="item" data-base="2" data-unit="" title="Green onions — 2"><input type="checkbox"><span class="ing-name">Green onions</span><span class="ing-amt">2</span></label>
+      <label class="item" data-base="3" data-unit="g" title="Sesame seeds — 1 tsp (3 g)"><input type="checkbox"><span class="ing-name">Sesame seeds</span><span class="ing-amt">3 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Broccoli, to serve — 1 head (~300 g)"><input type="checkbox"><span class="ing-name">Broccoli, to serve</span><span class="ing-amt">~300 g</span></label>
     </div>
   </details>
   <details>
     <summary>How to make</summary>
     <ol class="steps">
-      <li>Preheat oven to 180 °C / 355 °F and line a baking tray.</li>
-      <li>Mix all the dry ingredients together.</li>
-      <li>Blend the wet ingredients for about 10 seconds.</li>
-      <li>Fold the wet mixture into the dry until you have a thick brownie batter, adding the chocolate chips if using.</li>
-      <li>Pour into the lined tray and bake 12–15 minutes — shorter for fudgier.</li>
-      <li>Cool completely (they're even better after chilling in the fridge), then slice into 9.</li>
+      <li>Brown the minced beef in a dry pan, breaking it up; drain any excess fat.</li>
+      <li>Add the garlic and grated ginger; cook 30 seconds.</li>
+      <li>Stir in the soy sauce, brown sugar, and sesame oil (add pepper flakes only to the adult batch); simmer 2–3 minutes.</li>
+      <li>Spoon over rice and top with green onions and sesame seeds. Serve broccoli alongside.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="asian" data-course="main" data-protein="chicken" data-traits="batch">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Mild Coconut Chicken Curry</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">Freezes up to 3 months. Chili at the table for adults. Serve over rice.</p>
+    <p class="links"><a href="https://simplehomeedit.com/recipe/quick-coconut-chicken-curry/">Simple Home Edit</a><a href="https://www.halfbakedharvest.com/simple-coconut-chicken-curry/">Half Baked Harvest</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="600" data-unit="g" title="Chicken thighs, boneless — 1.3 lb (600 g)"><input type="checkbox"><span class="ing-name">Chicken thighs, boneless</span><span class="ing-amt">600 g</span></label>
+      <label class="item" data-base="400" data-unit="ml" title="Coconut milk — 1 can (400 ml)"><input type="checkbox"><span class="ing-name">Coconut milk</span><span class="ing-amt">400 ml</span></label>
+      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
+      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
+      <label class="item" data-base="14" data-unit="g" title="Mild curry powder — 2 tbsp (14 g)"><input type="checkbox"><span class="ing-name">Mild curry powder</span><span class="ing-amt">14 g</span></label>
+      <label class="item" data-base="16" data-unit="g" title="Tomato paste — 1 tbsp (16 g)"><input type="checkbox"><span class="ing-name">Tomato paste</span><span class="ing-amt">16 g</span></label>
+      <label class="item" data-base="7" data-unit="g" title="Honey — 1 tsp (7 g)"><input type="checkbox"><span class="ing-name">Honey</span><span class="ing-amt">7 g</span></label>
+      <label class="item" data-base="150" data-unit="g" title="Frozen peas or broccoli — 1 cup (150 g)"><input type="checkbox"><span class="ing-name">Frozen peas or broccoli</span><span class="ing-amt">150 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps">
+      <li>Cook the diced onion in a little oil until soft, then add garlic, curry powder, and tomato paste; stir 1 minute.</li>
+      <li>Add the diced chicken thighs and brown on all sides.</li>
+      <li>Pour in the coconut milk and honey; simmer 15–20 minutes until the chicken is cooked through and the sauce thickens.</li>
+      <li>Stir in the peas or broccoli and cook 3–4 minutes. Season to taste.</li>
+      <li>Serve over rice; add chili at the table for the adults.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="brazilian" data-course="main" data-protein="fish" data-traits="batch">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Moqueca (Brazilian Fish Stew)</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">Cod, tilapia, salmon, or shrimp in coconut-tomato broth. Batch the sauce; cook fish fresh in it.</p>
+    <p class="links"><a href="https://www.recipetineats.com/brazilian-fish-stew-moqueca-baiana/">RecipeTin Eats</a><a href="https://www.feastingathome.com/brazilian-fish-stew-aka-moqueca/">Feasting at Home</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="500" data-unit="g" title="Firm white fish (cod/tilapia) — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Firm white fish</span><span class="ing-amt">500 g</span></label>
+      <label class="item" data-base="400" data-unit="ml" title="Coconut milk — 1 can (400 ml)"><input type="checkbox"><span class="ing-name">Coconut milk</span><span class="ing-amt">400 ml</span></label>
+      <label class="item" data-base="400" data-unit="g" title="Tomatoes — 2 fresh or 1 can (400 g)"><input type="checkbox"><span class="ing-name">Tomatoes</span><span class="ing-amt">400 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Bell peppers — 2 (~300 g)"><input type="checkbox"><span class="ing-name">Bell peppers</span><span class="ing-amt">~300 g</span></label>
+      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
+      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
+      <label class="item" data-base="1" data-unit="" title="Lime — 1"><input type="checkbox"><span class="ing-name">Lime</span><span class="ing-amt">1</span></label>
+      <label class="item" data-base="7" data-unit="g" title="Sweet paprika — 1 tbsp (7 g)"><input type="checkbox"><span class="ing-name">Sweet paprika</span><span class="ing-amt">7 g</span></label>
+      <label class="item" data-base="25" data-unit="g" title="Fresh cilantro — ½ bunch (~25 g)"><input type="checkbox"><span class="ing-name">Fresh cilantro</span><span class="ing-amt">~25 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Rice, to serve — 1½ cups dry (300 g)"><input type="checkbox"><span class="ing-name">Rice, to serve</span><span class="ing-amt">300 g</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps">
+      <li>Sauté the onion, bell peppers, and garlic until soft, then stir in the paprika.</li>
+      <li>Add the tomatoes and coconut milk; simmer 10 minutes to build the sauce (batch this ahead if you like).</li>
+      <li>Nestle the fish into the broth and simmer gently 8–10 minutes, until just cooked.</li>
+      <li>Finish with lime juice and cilantro. Serve over rice.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="mexican" data-course="main" data-protein="beef" data-traits="batch">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Picadillo</h3><span class="batch">★ Batch</span></div>
+    <p class="meta">Minced meat + tomato + potatoes in one pan. Keeps 4 days, freezes. Double it.</p>
+    <p class="links"><a href="https://themodernproper.com/picadillo">Modern Proper (Mexican)</a><a href="https://www.skinnytaste.com/picadillo-6-ww-pts/">Skinnytaste (Cuban)</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+    <div class="variants" role="group" aria-label="Recipe versions"><button type="button" class="variant-tab" data-variant="mexican">Mexican</button><button type="button" class="variant-tab" data-variant="cuban">Cuban</button></div>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="500" data-unit="g" title="Minced beef — 1.1 lb (500 g)"><input type="checkbox"><span class="ing-name">Minced beef</span><span class="ing-amt">500 g</span></label>
+      <label class="item" data-base="300" data-unit="g" title="Potatoes — 2 medium (~300 g)"><input type="checkbox"><span class="ing-name">Potatoes</span><span class="ing-amt">~300 g</span></label>
+      <label class="item" data-base="150" data-unit="g" title="Onion — 1 medium (~150 g)"><input type="checkbox"><span class="ing-name">Onion</span><span class="ing-amt">~150 g</span></label>
+      <label class="item" data-base="3" data-unit="cloves" title="Garlic — 3 cloves"><input type="checkbox"><span class="ing-name">Garlic</span><span class="ing-amt">3 cloves</span></label>
+      <label class="item" data-base="225" data-unit="g" title="Tomato sauce — 1 can (8 oz) (225 g)"><input type="checkbox"><span class="ing-name">Tomato sauce</span><span class="ing-amt">225 g</span></label>
+      <label class="item" data-base="120" data-unit="ml" title="Beef broth — ½ cup (120 ml)"><input type="checkbox"><span class="ing-name">Beef broth</span><span class="ing-amt">120 ml</span></label>
+      <label class="item" data-base="2" data-unit="g" title="Ground cumin — 1 tsp (2 g)"><input type="checkbox"><span class="ing-name">Ground cumin</span><span class="ing-amt">2 g</span></label>
+      <label class="item" data-base="0.6" data-unit="g" title="Cinnamon — ¼ tsp (0.6 g)"><input type="checkbox"><span class="ing-name">Cinnamon</span><span class="ing-amt">0.6 g</span></label>
+      <label class="item" data-base="45" data-unit="g" data-variant-only="cuban" title="Green olives — ⅓ cup (45 g)"><input type="checkbox"><span class="ing-name">Green olives</span><span class="ing-amt">45 g</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps" data-variant-only="mexican">
+      <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
+      <li>Stir in the cumin and cinnamon, then the tomato sauce, broth, and diced potatoes.</li>
+      <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
+      <li>Serve with rice.</li>
+    </ol>
+    <ol class="steps" data-variant-only="cuban">
+      <li>Brown the minced beef with the onion and garlic, breaking it up as it cooks.</li>
+      <li>Stir in the cumin, then the tomato sauce, broth, and diced potatoes.</li>
+      <li>Simmer covered 15–20 minutes until the potatoes are tender and the sauce is thick.</li>
+      <li>Stir in the green olives (a splash of their brine is good) and warm through. Serve with rice.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="korean" data-course="main" data-protein="fish">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Tuna Mayo Kimbap</h3></div>
+    <p class="meta">Eat same day. Fillings prep ahead and keep 2–3 days; rolling takes 10 minutes.</p>
+    <p class="links"><a href="https://mykoreankitchen.com/tuna-kimbap/">My Korean Kitchen</a><a href="https://www.beyondkimchee.com/cucumber-tuna-kimbap/">Beyond Kimchee</a></p>
+    <p class="version-note">House version — blended from the sources above.</p>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="400" data-unit="g" title="Short-grain (sushi) rice — 2 cups dry (400 g)"><input type="checkbox"><span class="ing-name">Sushi rice</span><span class="ing-amt">400 g</span></label>
+      <label class="item" data-base="2" data-unit="cans" title="Canned tuna — 2 cans (2 × 140 g drained)"><input type="checkbox"><span class="ing-name">Canned tuna</span><span class="ing-amt">2 cans</span></label>
+      <label class="item" data-base="45" data-unit="g" title="Mayonnaise — 3 tbsp (45 g)"><input type="checkbox"><span class="ing-name">Mayonnaise</span><span class="ing-amt">45 g</span></label>
+      <label class="item" data-base="4" data-unit="sheets" title="Nori / gim seaweed — 4 sheets"><input type="checkbox"><span class="ing-name">Nori / gim seaweed</span><span class="ing-amt">4 sheets</span></label>
+      <label class="item" data-base="3" data-unit="eggs" title="Eggs — 3"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">3</span></label>
+      <label class="item" data-base="70" data-unit="g" title="Carrot — 1 medium (~70 g)"><input type="checkbox"><span class="ing-name">Carrot</span><span class="ing-amt">~70 g</span></label>
+      <label class="item" data-base="100" data-unit="g" title="Cucumber — ½ (~100 g)"><input type="checkbox"><span class="ing-name">Cucumber</span><span class="ing-amt">~100 g</span></label>
+      <label class="item" data-base="30" data-unit="ml" title="Sesame oil — 2 tbsp (30 ml)"><input type="checkbox"><span class="ing-name">Sesame oil</span><span class="ing-amt">30 ml</span></label>
+      <label class="item" title="Pickled radish (danmuji) — optional, 4 strips"><input type="checkbox"><span class="ing-name">Pickled radish (danmuji)</span><span class="ing-amt">optional, 4 strips</span></label>
+      <label class="item" title="Bamboo rolling mat — one-time buy"><input type="checkbox"><span class="ing-name">Bamboo rolling mat</span><span class="ing-amt">one-time buy</span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps">
+      <li>Cook the rice, then toss it warm with a little sesame oil and a pinch of salt; let it cool slightly.</li>
+      <li>Mix the drained tuna with mayo. Beat and fry the eggs into a thin omelette, then slice into strips. Julienne the carrot (sauté 1 minute) and cucumber.</li>
+      <li>Lay a nori sheet shiny-side down on the mat and spread a thin, even layer of rice, leaving the far edge bare.</li>
+      <li>Line the fillings across the center, then roll away from you with the mat, pressing firmly.</li>
+      <li>Brush with sesame oil and slice with a sharp, wet knife. Eat the same day.</li>
     </ol>
   </details>
 </article>
@@ -1124,43 +1134,175 @@
     });
   })();
 
-  // Desktop master-detail: a sticky recipe index on the left, the selected
-  // recipe shown in full (all sections open) on the right. Mobile keeps
-  // the card list; the layout switches live at the 900px breakpoint.
+  // Tags, filters, and the desktop master-detail view. Recipes carry
+  // data-* metadata (cuisine/course/protein/traits) shown as pills on the
+  // card and filterable via header chips; an ingredient box matches the
+  // actual ingredient lists. All active filters combine as OR. The
+  // default view lists every recipe alphabetically.
   (function () {
-    var mq = window.matchMedia('(min-width: 56.25em)');
+    var FACETS = [
+      { key: 'cuisine', label: 'Cuisine', names: { asian: 'Asian', korean: 'Korean', mexican: 'Mexican', brazilian: 'Brazilian' } },
+      { key: 'course', label: 'Course', names: { main: 'Main course', lunch: 'Lunch', dessert: 'Dessert' } },
+      { key: 'protein', label: 'Protein', names: { chicken: 'Chicken', beef: 'Beef', fish: 'Fish & seafood' } },
+      { key: 'traits', label: 'More', names: { batch: 'Batch-friendly', 'high-protein': 'High-protein', 'no-cook': 'No-cook' } }
+    ];
     var cards = Array.prototype.slice.call(document.querySelectorAll('article.ticket'));
     if (!cards.length) return;
+    var mq = window.matchMedia('(min-width: 56.25em)');
 
+    function tagsOf(card, key) {
+      var v = card.getAttribute('data-' + key);
+      return v ? v.split(/\s+/) : [];
+    }
+    var meta = cards.map(function (card) {
+      var all = [];
+      FACETS.forEach(function (f) { tagsOf(card, f.key).forEach(function (v) { all.push(v); }); });
+      var ing = Array.prototype.map.call(card.querySelectorAll('.ing-name'), function (n) {
+        return n.childNodes[0].textContent.toLowerCase();
+      }).join('\n');
+      return { card: card, tags: all, ing: ing };
+    });
+
+    // tag pills on each card head
+    meta.forEach(function (m) {
+      var head = m.card.querySelector('.ticket-head');
+      if (!head || !m.tags.length) return;
+      var row = document.createElement('p');
+      row.className = 'tags';
+      FACETS.forEach(function (f) {
+        tagsOf(m.card, f.key).forEach(function (v) {
+          var t = document.createElement('span');
+          t.className = 'tag';
+          t.textContent = f.names[v] || v;
+          row.appendChild(t);
+        });
+      });
+      head.appendChild(row);
+    });
+
+    // ---- filter bar (built into the header) ----
+    var selected = {};
+    var terms = [];
+    var live = '';
+    var bar = document.createElement('div');
+    bar.className = 'filters';
+    FACETS.forEach(function (f) {
+      var present = {};
+      meta.forEach(function (m) { tagsOf(m.card, f.key).forEach(function (v) { present[v] = true; }); });
+      var vals = Object.keys(f.names).filter(function (v) { return present[v]; });
+      if (!vals.length) return;
+      var group = document.createElement('span');
+      group.className = 'filter-group';
+      var lab = document.createElement('span');
+      lab.className = 'filter-label';
+      lab.textContent = f.label;
+      group.appendChild(lab);
+      vals.forEach(function (v) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'filter-chip';
+        b.textContent = f.names[v];
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () {
+          if (selected[v]) delete selected[v];
+          else selected[v] = true;
+          b.classList.toggle('on', !!selected[v]);
+          b.setAttribute('aria-pressed', selected[v] ? 'true' : 'false');
+          refresh();
+        });
+        group.appendChild(b);
+      });
+      bar.appendChild(group);
+    });
+    var ingGroup = document.createElement('span');
+    ingGroup.className = 'filter-group';
+    var ingLab = document.createElement('span');
+    ingLab.className = 'filter-label';
+    ingLab.textContent = 'Ingredient';
+    ingGroup.appendChild(ingLab);
+    var termWrap = document.createElement('span');
+    termWrap.className = 'term-wrap';
+    var box = document.createElement('input');
+    box.type = 'text';
+    box.className = 'ing-filter';
+    box.placeholder = 'e.g. minced beef';
+    box.setAttribute('aria-label', 'Filter recipes by ingredient');
+    box.addEventListener('input', function () {
+      live = box.value.trim().toLowerCase();
+      refresh();
+    });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && box.value.trim()) {
+        var t = box.value.trim().toLowerCase();
+        if (terms.indexOf(t) === -1) terms.push(t);
+        box.value = '';
+        live = '';
+        renderTerms();
+        refresh();
+      }
+    });
+    ingGroup.appendChild(termWrap);
+    ingGroup.appendChild(box);
+    bar.appendChild(ingGroup);
+    var count = document.createElement('span');
+    count.className = 'filter-count';
+    bar.appendChild(count);
+    document.querySelector('header').appendChild(bar);
+
+    function renderTerms() {
+      termWrap.innerHTML = '';
+      terms.forEach(function (t) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'filter-chip on';
+        chip.textContent = t + ' \u00d7';
+        chip.title = 'Remove this ingredient filter';
+        chip.addEventListener('click', function () {
+          terms = terms.filter(function (x) { return x !== t; });
+          renderTerms();
+          refresh();
+        });
+        termWrap.appendChild(chip);
+      });
+    }
+
+    function matches(m) {
+      var sel = Object.keys(selected);
+      var tlist = live ? terms.concat([live]) : terms;
+      if (!sel.length && !tlist.length) return true;
+      var tagHit = sel.some(function (v) { return m.tags.indexOf(v) !== -1; });
+      var ingHit = tlist.some(function (t) { return m.ing.indexOf(t) !== -1; });
+      return tagHit || ingHit;
+    }
+
+    var noMatch = document.createElement('p');
+    noMatch.className = 'no-match';
+    noMatch.textContent = 'No recipes match these filters.';
+    noMatch.hidden = true;
+    document.querySelector('main').appendChild(noMatch);
+
+    // ---- flat alphabetical sidebar (desktop) ----
     var aside = document.createElement('aside');
     aside.className = 'side';
     aside.setAttribute('aria-label', 'Recipes');
     var linkById = {};
-    document.querySelectorAll('main > h2').forEach(function (h2) {
-      var head = document.createElement('p');
-      head.className = 'side-h';
-      head.textContent = h2.textContent;
-      aside.appendChild(head);
-      var wrap = h2.nextElementSibling;
-      if (!wrap || !wrap.classList.contains('cards')) return;
-      wrap.querySelectorAll('article.ticket').forEach(function (a) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'side-link';
-        b.textContent = a.querySelector('h3').textContent;
-        if (a.querySelector('.batch')) {
-          var star = document.createElement('span');
-          star.className = 'star';
-          star.textContent = '\u2605';
-          b.appendChild(star);
-        }
-        b.addEventListener('click', function () {
-          select(a);
-          if (a.id) history.replaceState(null, '', '#' + a.id);
-        });
-        linkById[a.id] = b;
-        aside.appendChild(b);
+    cards.forEach(function (a) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'side-link';
+      b.textContent = a.querySelector('h3').textContent;
+      if (a.querySelector('.batch')) {
+        var star = document.createElement('span');
+        star.className = 'star';
+        star.textContent = '\u2605';
+        b.appendChild(star);
+      }
+      b.addEventListener('click', function () {
+        select(a);
+        if (a.id) history.replaceState(null, '', '#' + a.id);
       });
+      linkById[a.id] = b;
+      aside.appendChild(b);
     });
     var main = document.querySelector('main');
     main.insertBefore(aside, main.firstChild);
@@ -1171,19 +1313,35 @@
       if (!mq.matches) return;
       cards.forEach(function (c) { c.classList.toggle('active', c === a); });
       Object.keys(linkById).forEach(function (id) {
-        linkById[id].classList.toggle('active', id === a.id);
+        linkById[id].classList.toggle('active', !!a && id === a.id);
       });
-      a.querySelectorAll('details').forEach(function (d) { d.open = true; });
+      if (a) a.querySelectorAll('details').forEach(function (d) { d.open = true; });
+    }
+    function refresh() {
+      var vis = meta.filter(matches).map(function (m) { return m.card; });
+      cards.forEach(function (c) {
+        var ok = vis.indexOf(c) !== -1;
+        c.classList.toggle('filtered-out', !ok);
+        if (linkById[c.id]) linkById[c.id].hidden = !ok;
+      });
+      count.textContent = vis.length + ' of ' + cards.length + ' recipes';
+      noMatch.hidden = vis.length > 0;
+      if (mq.matches) {
+        if (!vis.length) select(null);
+        else if (!current || vis.indexOf(current) === -1) select(vis[0]);
+        else select(current);
+      }
     }
     function apply() {
       if (mq.matches) {
         document.body.classList.add('desktop');
         var t = location.hash && document.getElementById(location.hash.slice(1));
-        select(t && t.classList && t.classList.contains('ticket') ? t : (current || cards[0]));
+        if (t && t.classList && t.classList.contains('ticket')) current = t;
       } else {
         document.body.classList.remove('desktop');
         cards.forEach(function (c) { c.classList.remove('active'); });
       }
+      refresh();
     }
     window.addEventListener('hashchange', function () {
       var t = document.getElementById(location.hash.slice(1));

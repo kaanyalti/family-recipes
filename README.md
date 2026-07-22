@@ -31,7 +31,14 @@ Every recipe gets a "Copy link" button and a URL anchor derived from its title
 (e.g. `#carne-asada`), so new recipes are shareable automatically. Opening a
 shared link scrolls to that recipe with its sections expanded.
 
-Ingredients with `data-base` / `data-unit` on their `<label class="item">` get a
-"have" input that rescales the whole recipe live to the most limiting
-ingredient (e.g. `data-base="500" data-unit="g"`). Leave the attributes off
-non-scalable rows (to-taste items, equipment, "to serve" suggestions).
+Ingredients with `data-base` / `data-unit` on their `<label class="item">` are
+tap-to-scale: entering how much you have rescales the whole recipe live to the
+most limiting ingredient (e.g. `data-base="500" data-unit="g"`). Leave the
+attributes off non-scalable rows (to-taste items, equipment).
+
+Recipes are listed alphabetically and filtered by tags rather than grouped:
+give each `<article>` metadata like `data-cuisine="mexican" data-course="main"
+data-protein="beef" data-traits="batch high-protein"`. Filter chips and card
+pills are generated from these attributes, and the ingredient filter box
+matches the actual ingredient rows. Keep new recipes in alphabetical order
+within the single `.cards` list.
