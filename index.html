@@ -397,7 +397,7 @@
 <header>
   <p class="eyebrow">Easy · Batch-friendly · Toddler-approved</p>
   <h1>Family Kitchen Index</h1>
-  <p class="intro">The new rotation: thirteen recipes, each with its trusted source links and a tap-to-check ingredient list.</p>
+  <p class="intro">The new rotation: fourteen recipes, each with its trusted source links and a tap-to-check ingredient list.</p>
 </header>
 
 <main>
@@ -433,6 +433,42 @@
       <li>Sear on a hot grill pan, 3–4 minutes per side, to your preferred doneness.</li>
       <li>Rest 5 minutes, then slice thinly against the grain.</li>
       <li>Serve in warm tortillas.</li>
+    </ol>
+  </details>
+</article>
+
+<article class="ticket" data-cuisine="italian" data-course="main" data-protein="chicken">
+  <div class="ticket-head">
+    <div class="ticket-top"><h3>Chicken Parmesan</h3></div>
+    <p class="meta">Crispy breaded cutlets under marinara and melted cheese. Serves 4. Sauce the middles only so the edges stay crunchy.</p>
+    <p class="links"><a href="https://www.allrecipes.com/recipe/223042/chicken-parmesan/">Allrecipes (Chef John)</a></p>
+    <p class="version-note">House version — follow the source link for the original.</p>
+  </div>
+  <details>
+    <summary>Ingredients</summary>
+    <div class="list">
+      <label class="item" data-base="700" data-unit="g" title="Chicken breasts — 2 large, halved into 4 cutlets (~700 g)"><input type="checkbox"><span class="ing-name">Chicken breasts</span><span class="ing-amt">~700 g</span></label>
+      <label class="item" title="Salt and pepper — to taste"><input type="checkbox"><span class="ing-name">Salt and pepper</span><span class="ing-amt">to taste</span></label>
+      <label class="item" data-base="50" data-unit="g" title="All-purpose flour — 50 g (⅓ cup)"><input type="checkbox"><span class="ing-name">All-purpose flour</span><span class="ing-amt">50 g</span></label>
+      <label class="item" data-base="2" data-unit="eggs" title="Eggs — 2, beaten"><input type="checkbox"><span class="ing-name">Eggs</span><span class="ing-amt">2</span></label>
+      <label class="item" data-base="100" data-unit="g" title="Breadcrumbs, panko or Italian — 100 g (1 cup)"><input type="checkbox"><span class="ing-name">Breadcrumbs (panko or Italian)</span><span class="ing-amt">100 g</span></label>
+      <label class="item" data-base="60" data-unit="g" title="Parmesan, grated — 60 g (⅔ cup)"><input type="checkbox"><span class="ing-name">Parmesan, grated</span><span class="ing-amt">60 g</span></label>
+      <label class="item" data-base="45" data-unit="ml" title="Olive oil, for frying — 3 tbsp (45 ml)"><input type="checkbox"><span class="ing-name">Olive oil, for frying</span><span class="ing-amt">45 ml</span></label>
+      <label class="item" data-base="350" data-unit="g" title="Marinara sauce — 350 g (1½ cups)"><input type="checkbox"><span class="ing-name">Marinara sauce</span><span class="ing-amt">350 g</span></label>
+      <label class="item" data-base="150" data-unit="g" title="Mozzarella — 150 g, sliced or shredded"><input type="checkbox"><span class="ing-name">Mozzarella</span><span class="ing-amt">150 g</span></label>
+      <label class="item" title="Fresh basil — a few leaves, optional"><input type="checkbox"><span class="ing-name">Fresh basil</span><span class="ing-amt">optional</span></label>
+      <label class="item" title="Spaghetti or salad, to serve"><input type="checkbox"><span class="ing-name">Spaghetti or salad, to serve</span><span class="ing-amt"></span></label>
+    </div>
+  </details>
+  <details>
+    <summary>How to make</summary>
+    <ol class="steps">
+      <li>Preheat oven to 200 °C / 400 °F. Halve the breasts horizontally into 4 cutlets, pound to an even 1.5 cm, and season with salt and pepper.</li>
+      <li>Set up three dishes: flour, beaten eggs, and breadcrumbs mixed with half the parmesan. Coat each cutlet flour → egg → crumbs, pressing them on.</li>
+      <li>Pan-fry in olive oil over medium-high, 2–3 minutes per side, until golden — they finish cooking in the oven.</li>
+      <li>Lay the cutlets in a baking dish, spoon marinara over the middles (leave the edges bare so they stay crisp), and top with mozzarella and the remaining parmesan.</li>
+      <li>Bake 15–20 minutes until the cheese is bubbling and the chicken is cooked through (74 °C in the center).</li>
+      <li>Rest a few minutes, scatter with basil, and serve over spaghetti or with a salad.</li>
     </ol>
   </details>
 </article>
@@ -1153,7 +1189,7 @@
   // rest, never hiding anything. Chips combine as OR.
   (function () {
     var FACETS = [
-      { key: 'cuisine', names: { asian: 'Asian', korean: 'Korean', mexican: 'Mexican', brazilian: 'Brazilian' } },
+      { key: 'cuisine', names: { asian: 'Asian', korean: 'Korean', mexican: 'Mexican', brazilian: 'Brazilian', italian: 'Italian' } },
       { key: 'course', names: { main: 'Main course', lunch: 'Lunch', dessert: 'Dessert' } },
       { key: 'protein', names: { chicken: 'Chicken', beef: 'Beef', fish: 'Fish & seafood' } },
       { key: 'traits', names: { batch: 'Batch-friendly', 'high-protein': 'High-protein', 'no-cook': 'No-cook' } }
